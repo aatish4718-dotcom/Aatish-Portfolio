@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aatish Kumar — Urban Planner &amp; Visual Storyteller | DigBig Studio</title>
+<meta name="description" content="Aatish Kumar is an urban planner and visual storyteller working between planning, GIS-adjacent urban research, visual communication, photography and film. Selected work, a 141-frame photography archive and seven films.">
+<meta name="author" content="Aatish Kumar">
+<meta name="theme-color" content="#FAFAF8">
+
+<link rel="canonical" href="https://digbigstudio.com/">
+<link rel="icon" type="image/png" href="images/favicon-on-light.png" media="(prefers-color-scheme: light)">
+<link rel="icon" type="image/png" href="images/favicon-on-dark.png" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="images/favicon-light.png">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://digbigstudio.com/">
+<meta property="og:site_name" content="DigBig Studio">
+<meta property="og:locale" content="en_IN">
+<meta property="og:title" content="Aatish Kumar — Urban Planner &amp; Visual Storyteller">
+<meta property="og:description" content="Planning, visual communication, photography and film — connected through one way of seeing.">
+<meta property="og:image" content="https://digbigstudio.com/images/og-card-2026.jpg">
+<meta property="og:image:secure_url" content="https://digbigstudio.com/images/og-card-2026.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Aatish Kumar — Urban Planner × Visual Storyteller. DigBig Studio.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Aatish Kumar — Urban Planner &amp; Visual Storyteller">
+<meta name="twitter:description" content="Planning, visual communication, photography and film — connected through one way of seeing.">
+<meta name="twitter:image" content="https://digbigstudio.com/images/og-card-2026.jpg">
+<meta name="twitter:image:alt" content="Aatish Kumar — Urban Planner × Visual Storyteller">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="images/mark-ink.png" imagesrcset="images/mark-ink.png 1x, images/mark-ink@2x.png 2x">
+
+<!-- Theme, resolved before the first paint — inline and before the stylesheet,
+     or the page would paint one way and snap to the other.
+
+     Every visit opens white. The operating system is deliberately NOT consulted:
+     the first thing anyone sees should be the ground the work was designed on,
+     and a visitor whose laptop is set to dark would otherwise never see it.
+     Switching is remembered for the session only, so it survives a reload or a
+     move between pages in this tab and resets the next time the site is opened. -->
+<script>
+  (function () {
+    var t = null;
+    try { t = sessionStorage.getItem('db-theme'); } catch (e) {}
+    document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+
+    /* Scroll position is ours to decide, not the browser's.
+       Left on "auto", the browser restores the previous scroll offset AFTER
+       the page loads — which lands on top of the router's own scroll-to-top and
+       wins. Reloading "/" would drop you 3900px down the home page, parked on
+       the Motion block, which reads as though the site had opened straight into
+       a film rather than the home page. Turning restoration off is the fix; the
+       router positions every route itself. */
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  })();
+</script>
+<link rel="stylesheet" href="styles.css?v=32">
+<!-- Without scripting there is no router, so the home page is simply shown. -->
+<noscript><style>#home{display:block!important}#view{display:none!important}#boot{display:none!important}</style></noscript>
+
+<!-- ══════════════════════════════════════════════════════ BOOT SCREEN ═══ -->
+<!-- Inlined, because a loading screen that arrives after an external
+     stylesheet has downloaded is not a loading screen — it is a flash.
+
+     Two rules govern this thing, both taken from the brief's own instruction
+     that nothing should delay content:
+
+     1. It can never trap the page. The keyframes hide it at 2.4s all on their
+        own, so a JavaScript error, a blocked script or a dead network still
+        ends with the site visible. The script only ever dismisses it EARLIER.
+     2. It appears once per session. Coming back from a project page is not a
+        new visit and must not replay it. -->
+<style>
+  #boot{position:fixed;inset:0;z-index:300;background:var(--paper,#FAFAF8);display:grid;
+        place-items:center;animation:bootFail 0s linear 2.4s forwards}
+  #boot.go{opacity:0;transform:translateY(-6px);pointer-events:none;
+           transition:opacity .42s cubic-bezier(.22,.61,.36,1),transform .42s cubic-bezier(.22,.61,.36,1)}
+  #boot.gone,#boot[hidden]{display:none}
+  @keyframes bootFail{to{opacity:0;visibility:hidden;pointer-events:none}}
+  .boot-in{display:flex;flex-direction:column;align-items:center;gap:18px}
+  :root[data-theme='dark'] .boot-mark{filter:invert(1) hue-rotate(180deg)}
+  .boot-mark{width:clamp(68px,7.2vw,98px);height:auto;opacity:0;
+             animation:bootMark .6s cubic-bezier(.22,.61,.36,1) .06s forwards}
+  @keyframes bootMark{from{opacity:0;transform:scale(.965)}to{opacity:1;transform:none}}
+  .boot-wm{font:500 10px/1 'IBM Plex Mono',ui-monospace,Menlo,monospace;
+           letter-spacing:.34em;text-indent:.34em;color:var(--mute,#6E6E66);text-transform:uppercase}
+  .boot-bar{position:relative;width:104px;height:1px;background:var(--rule,#E1E1DB);overflow:hidden}
+  .boot-bar::after{content:'';position:absolute;inset:0;background:var(--red,#D81E1A);
+                   transform:scaleX(0);transform-origin:left;animation:bootBar 1.5s cubic-bezier(.4,0,.2,1) forwards}
+  @keyframes bootBar{to{transform:scaleX(1)}}
+  .boot-meta{position:fixed;left:0;right:0;padding:0 clamp(18px,4.2vw,72px);
+             display:flex;justify-content:space-between;
+             font:500 9.5px/1 'IBM Plex Mono',ui-monospace,Menlo,monospace;
+             letter-spacing:.13em;color:var(--mute,#86867E);text-transform:uppercase}
+  .boot-top{top:clamp(18px,4vw,40px)}
+  .boot-bot{bottom:clamp(18px,4vw,40px)}
+  @media (max-width:560px){.boot-meta span:last-child{display:none}}
+  /* Reduced motion: no movement anywhere, and it leaves almost at once. */
+  @media (prefers-reduced-motion:reduce){
+    #boot{animation-delay:.35s}
+    .boot-mark{opacity:1;animation:none}
+    .boot-bar::after{animation:none;transform:scaleX(1)}
+    #boot.go{transition-duration:.01ms;transform:none}
+  }
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Aatish Kumar",
+  "jobTitle": "Urban Planner",
+  "email": "mailto:aatish4718@gmail.com",
+  "url": "https://digbigstudio.com/",
+  "sameAs": ["https://www.instagram.com/mad_zombie_/", "https://www.linkedin.com/in/aatish4718/"],
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "School of Planning and Architecture, New Delhi"
+  },
+  "knowsAbout": ["Urban Planning", "Urban Research", "Visual Communication", "Photography", "Documentary Film"],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "All India Institute of Local Self-Government"
+  }
+}
+</script>
+</head>
+<body>
+
+<!-- aria-hidden and inert: this is decoration over content that is already in
+     the DOM, so it must not be announced or focusable while it is up. -->
+<div id="boot" aria-hidden="true" inert>
+  <p class="boot-meta boot-top"><span>DigBig Studio</span><span>Portfolio — 2026</span></p>
+  <div class="boot-in">
+    <img class="boot-mark" src="images/mark-ink.png"
+         srcset="images/mark-ink.png 1x, images/mark-ink@2x.png 2x"
+         alt="" width="320" height="179" fetchpriority="high" decoding="async">
+    <p class="boot-wm">Aatish Kumar</p>
+    <div class="boot-bar"></div>
+  </div>
+  <p class="boot-meta boot-bot"><span>Jodhpur</span><span>26°14′ N / 73°01′ E</span></p>
+</div>
+<script>
+  /* Runs before the body renders, so a repeat view inside the same session
+     never even paints the boot screen. */
+  (function () {
+    try {
+      if (sessionStorage.getItem('db-booted')) {
+        document.getElementById('boot').hidden = true;
+      } else {
+        sessionStorage.setItem('db-booted', '1');
+      }
+    } catch (e) { /* private mode: just let it play */ }
+  })();
+</script>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ══════════════════════════════════════════════════════════ HEADER ═══ -->
+<header class="hd" id="hd">
+  <div class="hd-in">
+    <a class="wordmark" href="#/" aria-label="DigBig Studio — home">
+      <!-- alt is empty on purpose: the wordmark beside it already says the
+           name, and the link carries its own label. -->
+      <img class="wm-mark on-light" src="images/mark-ink.png"
+           srcset="images/mark-ink.png 1x, images/mark-ink@2x.png 2x"
+           alt="" width="320" height="179" decoding="async">
+      <img class="wm-mark on-dark" src="images/mark-paper.png"
+           srcset="images/mark-paper.png 1x, images/mark-paper@2x.png 2x"
+           alt="" width="320" height="179" decoding="async">
+      <span class="wm-a">DIGBIG</span><span class="wm-b">STUDIO</span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Primary">
+      <ul>
+        <li><a href="#/" data-route="home"><i>01</i>Work</a></li>
+        <li><a href="#/plan" data-route="plan"><i>02</i>Plan</a></li>
+        <li><a href="#/design" data-route="design"><i>03</i>Design</a></li>
+        <li><a href="#/photography" data-route="photography"><i>04</i>Photography</a></li>
+        <li><a href="#/motion" data-route="motion"><i>05</i>Motion</a></li>
+        <li><a href="#/archive" data-route="archive"><i>06</i>Archive</a></li>
+        <li><a href="#/about" data-route="about"><i>07</i>About</a></li>
+      </ul>
+    </nav>
+
+    <div class="hd-end">
+      <a class="cv-link" href="images/Aatish_Kumar_CV.pdf" target="_blank" rel="noopener">CV<span aria-hidden="true"> ↗</span></a>
+      <button class="theme" id="theme" type="button" aria-pressed="false"
+              aria-label="Switch to dark mode" title="Switch to dark mode">
+        <i aria-hidden="true"></i>
+      </button>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+        <i></i><i></i>
+      </button>
+    </div>
+  </div>
+  <div class="hd-rule" aria-hidden="true"></div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════ DRAWER ═══ -->
+<div class="drawer" id="drawer" hidden>
+  <nav class="dw-nav" aria-label="Sections">
+    <a href="#/"><em>01</em><span>Work</span></a>
+    <a href="#/plan"><em>02</em><span>Plan</span></a>
+    <a href="#/design"><em>03</em><span>Design</span></a>
+    <a href="#/photography"><em>04</em><span>Photography</span></a>
+    <a href="#/motion"><em>05</em><span>Motion</span></a>
+    <a href="#/archive"><em>06</em><span>Archive</span></a>
+    <a href="#/about"><em>07</em><span>About</span></a>
+    <a href="#/contact"><em>08</em><span>Contact</span></a>
+  </nav>
+  <div class="dw-foot">
+    <a href="images/Aatish_Kumar_CV.pdf" target="_blank" rel="noopener">CV ↗</a>
+    <a href="mailto:aatish4718@gmail.com">aatish4718@gmail.com</a>
+    <a href="https://www.instagram.com/mad_zombie_/" target="_blank" rel="noopener">Instagram ↗</a>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ════════════════════════════════════════════════════════════ HOME ═══ -->
+<!-- Starts hidden and the router reveals it on the home route. Hidden at parse
+     time means the preload scanner will not fetch the hero for someone who
+     deep-linked to a story or a case study and will never see it. -->
+<div id="home" class="route" hidden>
+
+  <!-- ─────────────────────────────────────────────────────────── HERO -->
+  <section class="hero" aria-labelledby="heroName">
+    <div class="grid hero-top">
+      <p class="lbl c1-3">Portfolio — 2026</p>
+      <p class="lbl c4-6 hide-sm">Jodhpur, Rajasthan</p>
+      <p class="lbl c10-12 ta-r hide-sm">26°14′ N / 73°01′ E</p>
+    </div>
+
+    <h1 class="hero-name" id="heroName">
+      <span class="hn">AATISH</span>
+      <span class="hn">KUMAR</span>
+    </h1>
+
+    <div class="grid hero-mid">
+      <div class="c1-6 hero-role">
+        <p class="role-a">URBAN PLANNER</p>
+        <p class="role-x" aria-hidden="true">×</p>
+        <p class="role-a">VISUAL STORYTELLER</p>
+        <span class="mark" aria-hidden="true"></span>
+      </div>
+      <div class="c8-12 hero-say">
+        <p class="lede">I work between maps, cities, images and moving stories.</p>
+        <p class="body-sm">Urban planning, visual communication, photography and film — connected through one way of seeing.</p>
+      </div>
+    </div>
+
+    <ul class="disciplines" aria-label="Practices">
+      <li>PLAN</li><li>DESIGN</li><li>MOTION</li><li>PHOTO</li>
+    </ul>
+
+    <!-- The one image in static markup, so the page has a real crawlable hero
+         with alt text. It ships without srcset on purpose: the preload scanner
+         is a plain tokeniser that knows nothing about CSS, so any WebP listed
+         here would be fetched even inside a hidden #home — but the scanner
+         does respect loading="lazy" on a bare src. buildHome() attaches the
+         srcset, and it only runs on the home route, so the home page loads the
+         WebP and a deep link to any other route loads neither file. -->
+    <figure class="hero-fig" id="heroFig">
+      <img id="heroImg" src="photos/heritage/02.jpg"
+           alt="Jodhpur photographed from the fort — indigo-painted houses packed to the horizon, with the ramparts in the foreground."
+           width="1600" height="1218" loading="lazy" fetchpriority="high" decoding="async"><!-- srcset attached by buildHome() -->
+      <figcaption class="grid">
+        <span class="lbl c1-6">Jodhpur, Rajasthan</span>
+        <span class="lbl c10-12 ta-r">Fig. 01</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- ──────────────────────────────────────────────── SELECTED WORK -->
+  <!-- Directly after the hero, because the work has to arrive before the
+       argument about the work does. -->
+  <section class="sec sec-work" aria-labelledby="selHead">
+    <div class="sec-head grid">
+      <p class="sec-ix c1-12"><span>01</span> / 05</p>
+      <h2 class="c1-8" id="selHead">Selected work</h2>
+      <p class="lbl c10-12 ta-r" id="selCount">&nbsp;</p>
+    </div>
+    <div class="works" id="selList"></div>
+    <div class="sec-more grid">
+      <a class="more c1-6" href="#/plan">All planning work <span aria-hidden="true">→</span></a>
+      <a class="more c7-12 ta-r" href="#/design">All design work <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────────────────────── POSITIONING -->
+  <section class="sec invert" aria-labelledby="posHead">
+    <div class="grid">
+      <p class="sec-ix c1-3"><span>02</span> / 05 — Position</p>
+      <div class="c4-12 pos-body">
+        <h2 class="pos-line" id="posHead">
+          I am an <em>urban planner</em> who also works in visual communication, photography and film.
+        </h2>
+        <p class="pos-punch">That combination is the point.</p>
+        <p class="body">The planning gives the work a question to answer; the visual practice gives the answer somewhere to land. A ward-level sanitation campaign, a nineteen-page conference brochure and a film about a colony of puppeteers facing redevelopment are the same job done at different distances.</p>
+      </div>
+    </div>
+    <div class="pos-index grid" id="posIndex"></div>
+  </section>
+
+  <!-- ──────────────────────────────────────────── PHOTOGRAPHY -->
+  <section class="sec" aria-labelledby="arcHead">
+    <div class="sec-head grid">
+      <p class="sec-ix c1-12"><span>03</span> / 05</p>
+      <h2 class="c1-8" id="arcHead">Photography</h2>
+      <p class="lbl c10-12 ta-r">Field archive</p>
+    </div>
+    <div class="grid arc-stat">
+      <p class="big-num c1-4"><span id="statPhotos">141</span><i>photographs</i></p>
+      <p class="big-num c5-8"><span id="statStories">12</span><i>stories</i></p>
+      <p class="c9-12 body-sm">The archive is not a wall. It is cut into sequences, each one paced to be read rather than scrolled past.</p>
+    </div>
+    <div class="stories stories-home" id="arcPeek"></div>
+    <div class="sec-more grid">
+      <a class="more c1-12" href="#/photography">Open photography archive <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <!-- ──────────────────────────────────────────────────── MOTION -->
+  <section class="sec" aria-labelledby="motHead">
+    <div class="sec-head grid">
+      <p class="sec-ix c1-12"><span>04</span> / 05</p>
+      <h2 class="c1-8" id="motHead">Motion</h2>
+      <p class="lbl c10-12 ta-r" id="motCount">&nbsp;</p>
+    </div>
+    <div id="motFeature"></div>
+    <div class="sec-more grid">
+      <a class="more c1-12" href="#/motion">View all motion <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <!-- ───────────────────────────────────────────────────── ABOUT -->
+  <section class="sec sec-about" aria-labelledby="aboHead">
+    <div class="sec-head grid">
+      <p class="sec-ix c1-12"><span>05</span> / 05</p>
+      <h2 class="c1-8" id="aboHead">About</h2>
+      <p class="lbl c10-12 ta-r">Jodhpur, Rajasthan</p>
+    </div>
+    <div class="grid abo-grid">
+      <div class="c1-6 abo-say">
+        <p class="lede">With a background in urban planning, I am interested in how places are planned, experienced and communicated.</p>
+        <p class="body">My work moves between urban planning, visual communication, photography and film — looking for the space where analytical thinking and visual storytelling meet.</p>
+        <a class="more abo-more" href="#/about">Read the full profile <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="c8-12 abo-caps" id="aboCaps"></div>
+    </div>
+  </section>
+
+</div><!-- /#home -->
+
+<!-- Routed views render here -->
+<div id="view" class="route" hidden></div>
+
+</main>
+
+<!-- ══════════════════════════════════════════════════════════ FOOTER ═══ -->
+<footer class="ft" id="contact">
+  <div class="ft-in">
+    <h2 class="ft-big"><span>LET’S</span><span>MAKE</span><span>SOMETHING.</span></h2>
+
+    <div class="grid ft-grid">
+      <ul class="c1-4 ft-list" aria-label="Practices">
+        <li>Planning</li><li>Design</li><li>Photography</li><li>Film</li>
+      </ul>
+      <ul class="c5-8 ft-links">
+        <li><a href="mailto:aatish4718@gmail.com">Email<span aria-hidden="true"> ↗</span></a></li>
+        <li><a href="https://www.instagram.com/mad_zombie_/" target="_blank" rel="noopener">Instagram<span aria-hidden="true"> ↗</span></a></li>
+        <li><a href="https://www.linkedin.com/in/aatish4718/" target="_blank" rel="noopener">LinkedIn<span aria-hidden="true"> ↗</span></a></li>
+        <li><a href="images/Aatish_Kumar_CV.pdf" target="_blank" rel="noopener">CV<span aria-hidden="true"> ↗</span></a></li>
+      </ul>
+      <dl class="c10-12 ft-meta">
+        <div><dt>Based</dt><dd>Jodhpur, Rajasthan</dd></div>
+        <div><dt>Coordinates</dt><dd>26°14′ N / 73°01′ E</dd></div>
+        <div><dt>Available for</dt><dd>Planning · Design · Photo · Film</dd></div>
+      </dl>
+    </div>
+
+    <div class="ft-base grid">
+      <!-- The footer is an inverted band, so its mark runs opposite to the
+           header's: white artwork while the footer is dark, black artwork once
+           dark mode turns the footer light. -->
+      <span class="c1-4 ft-sign">
+        <img class="ft-mark on-inv-dark" src="images/mark-paper.png"
+             srcset="images/mark-paper.png 1x, images/mark-paper@2x.png 2x"
+             alt="DigBig Studio" width="320" height="179" loading="lazy" decoding="async">
+        <img class="ft-mark on-inv-light" src="images/mark-ink.png"
+             srcset="images/mark-ink.png 1x, images/mark-ink@2x.png 2x"
+             alt="" width="320" height="179" loading="lazy" decoding="async">
+      </span>
+      <span class="lbl c5-8">© 2026 Aatish Kumar — DigBig Studio</span>
+      <span class="lbl c10-12 ta-r">Set in Inter Tight &amp; IBM Plex Mono</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════ LIGHTBOX ═══ -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+  <div class="lb-bar">
+    <span class="lbl" id="lbTitle"></span>
+    <span class="lbl" id="lbCount"></span>
+    <button class="lb-x" id="lbClose" aria-label="Close viewer">CLOSE <span aria-hidden="true">×</span></button>
+  </div>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous image"><span aria-hidden="true">←</span></button>
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Next image"><span aria-hidden="true">→</span></button>
+  <!-- No src until the viewer opens: an empty src resolves to the page URL and
+       costs a wasted request on every page load. -->
+  <figure class="lb-fig"><img id="lbImg" alt=""></figure>
+  <p class="lb-cap lbl" id="lbCap"></p>
+</div>
+
+<!-- ══════════════════════════════════════════════════ REEL VIEWER ═══ -->
+<!-- Its own player, opened on demand. The clips are portrait, so the frame is
+     letterboxed rather than cropped and the composition survives. -->
+<div class="reelview" id="rv" role="dialog" aria-modal="true" aria-label="Short cut viewer" hidden>
+  <div class="rv-bar">
+    <span class="lbl" id="rvCat"></span>
+    <span class="lbl" id="rvCount"></span>
+    <button class="rv-x" id="rvClose" aria-label="Close viewer">CLOSE <span aria-hidden="true">×</span></button>
+  </div>
+
+  <div class="rv-stage" id="rvStage">
+    <video id="rvVideo" playsinline webkit-playsinline preload="metadata"></video>
+    <span class="rv-spin" id="rvSpin" aria-hidden="true"></span>
+    <p class="rv-err lbl" id="rvErr" hidden>This clip could not be played</p>
+    <!-- Shown once per visit on touch devices, then never again. -->
+    <p class="rv-hint lbl" id="rvHint" hidden>Swipe for the next clip</p>
+  </div>
+
+  <button class="rv-nav rv-prev" id="rvPrev" aria-label="Previous clip"><span aria-hidden="true">←</span></button>
+  <button class="rv-nav rv-next" id="rvNext" aria-label="Next clip"><span aria-hidden="true">→</span></button>
+
+  <div class="rv-ctl">
+    <button id="rvPlay" class="rv-btn" aria-label="Pause"><span class="ic-pause" aria-hidden="true"></span><em>Pause</em></button>
+    <button id="rvMute" class="rv-btn" aria-label="Mute"><span class="ic-snd" aria-hidden="true"></span><em>Sound</em></button>
+    <button id="rvFull" class="rv-btn" aria-label="Enter fullscreen"><span class="ic-full" aria-hidden="true"></span><em>Fullscreen</em></button>
+  </div>
+</div>
+
+<div class="cursor" id="cursor" aria-hidden="true"><span id="cursorTxt">VIEW</span></div>
+
+<script src="data.js?v=7" charset="utf-8"></script>
+<script src="design-data.js?v=7" charset="utf-8"></script>
+<script src="content.js?v=16" charset="utf-8"></script>
+<script src="app.js?v=33" charset="utf-8"></script>
+</body>
+</html>
