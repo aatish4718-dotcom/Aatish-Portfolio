@@ -1,23 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-
-  "//": [
-    "The site lives in digbig-2026/, not at the repository root. Without this,",
-    "Vercel serves the root — which contains only that folder and no index.html —",
-    "and every request returns 404. outputDirectory points it at the real site.",
-    "",
-    "There is no build step: these are hand-written static files.",
-    "",
-    "Routing is hash-based (/#/plan, /#/photography/lines), so the server only",
-    "ever has to serve '/'. No SPA rewrite is needed and none is defined.",
-    "",
-    "The headers below mirror netlify.toml so the site behaves the same on",
-    "either host: media cached hard, markup and code always revalidated."
-  ],
-
   "framework": null,
   "outputDirectory": "digbig-2026",
-
   "headers": [
     {
       "source": "/photos/(.*)",
@@ -39,7 +23,6 @@
       "source": "/docs/(.*)",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
     },
-
     {
       "source": "/index.html",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
@@ -52,7 +35,6 @@
       "source": "/(.*).css",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
     },
-
     {
       "source": "/(.*)",
       "headers": [
