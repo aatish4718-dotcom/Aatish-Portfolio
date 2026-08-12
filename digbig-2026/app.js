@@ -453,14 +453,37 @@
   /* How many documents the Archive already holds for a category, so the notice
      can say so rather than implying nothing exists. Read from ARCHIVE itself,
      which means the number can never drift from what is actually filed. */
-  function archiveDocCount(key, instShort) {
-    if (typeof ARCHIVE === 'undefined') return 0;
+  function archiveDocsFor(key, instShort) {
+    if (typeof ARCHIVE === 'undefined') return [];
     for (var i = 0; i < ARCHIVE.length; i++) {
-      if (ARCHIVE[i].key === key && ARCHIVE[i].inst === instShort) {
-        return ARCHIVE[i].items.length;
-      }
+      if (ARCHIVE[i].key === key && ARCHIVE[i].inst === instShort) return ARCHIVE[i].items;
     }
-    return 0;
+    return [];
+  }
+  function archiveDocCount(key, instShort) { return archiveDocsFor(key, instShort).length; }
+
+  /* One document card. Shared by the Archive page and the planning index so a
+     document looks and behaves the same wherever it is met, and there is only
+     one place to change it. Covers are lazy, and every use of this sits inside
+     a closed <details>, so nothing is fetched until a panel is opened. */
+  function docCard(it) {
+    return '<a class="arc-doc" href="docs/' + esc(it.stem) + '.pdf" target="_blank" rel="noopener" ' +
+        'data-cursor="READ" aria-label="' + esc(it.title + ' — open the full document, ' + it.pages + ' pages') + '">' +
+      '<span class="arc-doc-fig">' +
+        '<picture>' +
+          '<source type="image/webp" srcset="images/doc-covers/' + esc(it.stem) + '.webp">' +
+          '<img src="images/doc-covers/' + esc(it.stem) + '.jpg" alt="Cover of ' + esc(it.title) + '" ' +
+               'width="' + it.w + '" height="' + it.h + '" loading="lazy" decoding="async">' +
+        '</picture>' +
+      '</span>' +
+      '<span class="arc-doc-body">' +
+        '<span class="arc-doc-t">' + esc(it.title) + '</span>' +
+        (it.note ? '<span class="arc-doc-n">' + esc(it.note) + '</span>' : '') +
+        '<span class="arc-doc-m lbl">' + it.pages + ' pages · ' + it.mb + ' MB' +
+          (it.src === 'stated' ? ' · semester stated in document' : '') + '</span>' +
+        '<span class="arc-doc-go">Read the full document <span aria-hidden="true">↗</span></span>' +
+      '</span>' +
+    '</a>';
   }
 
   function viewPlanIndex() {
@@ -513,19 +536,22 @@
           var sub = [];
           for (var z = 0; z < list.length; z++) if (list[z].cat === cat.key) sub.push(list[z]);
 
-          /* A category with no project entry is still printed. Leaving it out
-             made the sequence look incomplete — three semesters simply absent
-             from the middle of a degree — when in fact the work exists and its
-             documents are already in the Archive. It gets the same notice an
-             archived project gets, and a way through to those documents. */
-          var docs = archiveDocCount(cat.key, inst.short);
+          /* Every category is printed, even with no project entry — leaving them
+             out made the degree look like it had holes in it. Each one opens
+             onto whatever it actually has: project pages, the documents
+             themselves, or both. The documents are rendered here rather than
+             pointed at, so a semester is complete where you are standing. */
+          var docs = archiveDocsFor(cat.key, inst.short);
 
-          h += '<details class="cat' + (sub.length ? '' : ' cat-empty') + '">' +
+          var count = [];
+          if (sub.length)  count.push(sub.length + (sub.length === 1 ? ' project' : ' projects'));
+          if (docs.length) count.push(docs.length + (docs.length === 1 ? ' doc' : ' docs'));
+
+          h += '<details class="cat' + (sub.length || docs.length ? '' : ' cat-empty') + '">' +
             '<summary class="cat-sum">' +
               '<span class="cat-n">' + pad(c + 1) + '</span>' +
               '<span class="cat-t">' + esc(cat.label) + '</span>' +
-              '<span class="cat-c lbl">' + (sub.length ? sub.length
-                  : (docs ? docs + ' docs' : '—')) + '</span>' +
+              '<span class="cat-c lbl">' + (count.length ? count.join(' · ') : '—') + '</span>' +
               '<span class="disc-i" aria-hidden="true"></span>' +
             '</summary>';
 
@@ -533,15 +559,23 @@
             h += '<div class="idx">';
             for (var y = 0; y < sub.length; y++) { n++; h += planRow(sub[y], n); }
             h += '</div>';
-          } else {
+          }
+
+          if (docs.length) {
+            h += '<div class="cat-docs">' +
+              '<p class="lbl cat-docs-k">' +
+                (sub.length ? 'Documents from this semester' : 'Documents') + '</p>' +
+              '<div class="arc-docs">';
+            for (var dd = 0; dd < docs.length; dd++) h += docCard(docs[dd]);
+            h += '</div></div>';
+          }
+
+          /* Only when there is genuinely nothing yet. */
+          if (!sub.length && !docs.length) {
             h += '<div class="cat-note">' +
               '<p class="lbl arch-note-k">Project archive</p>' +
               '<p class="arch-note-t">Visuals being archived</p>' +
-              '<p class="body-sm arch-note-b">Drawings from this semester are still being archived.' +
-                (docs ? ' The written work is already in the Archive.' : '') + '</p>' +
-              (docs ? '<a class="more cat-note-go" href="#/archive">' +
-                        'See ' + docs + ' document' + (docs === 1 ? '' : 's') +
-                        ' in the Archive <span aria-hidden="true">→</span></a>' : '') +
+              '<p class="body-sm arch-note-b">Drawings and documents from this semester are still being archived.</p>' +
             '</div>';
           }
           h += '</details>';
@@ -1191,23 +1225,7 @@
 
         for (var j = 0; j < grp.items.length; j++) {
           var it = grp.items[j];
-          h += '<a class="arc-doc" href="docs/' + esc(it.stem) + '.pdf" target="_blank" rel="noopener" ' +
-               'data-cursor="READ" aria-label="' + esc(it.title + ' — open the full document, ' + it.pages + ' pages') + '">' +
-            '<span class="arc-doc-fig">' +
-              '<picture>' +
-                '<source type="image/webp" srcset="images/doc-covers/' + esc(it.stem) + '.webp">' +
-                '<img src="images/doc-covers/' + esc(it.stem) + '.jpg" alt="Cover of ' + esc(it.title) + '" ' +
-                     'width="' + it.w + '" height="' + it.h + '" loading="lazy" decoding="async">' +
-              '</picture>' +
-            '</span>' +
-            '<span class="arc-doc-body">' +
-              '<span class="arc-doc-t">' + esc(it.title) + '</span>' +
-              (it.note ? '<span class="arc-doc-n">' + esc(it.note) + '</span>' : '') +
-              '<span class="arc-doc-m lbl">' + it.pages + ' pages · ' + it.mb + ' MB' +
-                (it.src === 'stated' ? ' · semester stated in document' : '') + '</span>' +
-              '<span class="arc-doc-go">Read the full document <span aria-hidden="true">↗</span></span>' +
-            '</span>' +
-          '</a>';
+          h += docCard(it);
         }
         h += '</div></div></details>';
       }

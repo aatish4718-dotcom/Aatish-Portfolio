@@ -1723,3 +1723,16 @@ details[open] > .arc-sum .arc-sum-i::after { transform: rotate(0deg); }
 .cat-empty > .cat-sum .cat-t { color: var(--char); }
 .cat-empty > .cat-sum .cat-c { color: var(--mute); }
 details.cat-empty[open] > .cat-sum .cat-t { color: var(--red); }
+
+/* Documents shown inside a semester in the planning index. Tighter than the
+   Archive page's grid — this is a panel inside a panel, not a page. */
+.cat-docs { padding: clamp(6px, 1vw, 12px) 0 clamp(18px, 2.2vw, 28px); }
+.cat-docs-k { color: var(--red); margin-bottom: clamp(12px, 1.6vw, 20px); }
+.cat-docs .arc-docs {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  gap: clamp(18px, 2.2vw, 30px) var(--gut);
+  margin-top: 0;
+}
+@media (max-width: 760px) {
+  .cat-docs .arc-docs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px var(--gut); }
+}
