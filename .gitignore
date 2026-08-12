@@ -1,0 +1,7 @@
+# Python bytecode from the asset tools
+__pycache__/
+*.pyc
+
+# Local-only helpers and working files
+.playwright-mcp/
+*.zip
