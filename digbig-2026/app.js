@@ -104,6 +104,13 @@
   }
   function pad(n) { return (n < 10 ? '0' : '') + n; }
 
+  /* Anything that opens the viewer carries these. The images are the control —
+     there is no button over them — so they have to be reachable by keyboard and
+     announced as something that can be pressed, or the viewer is mouse-only.
+     The alt text already reads "Photograph 3 of 6 from …", which is the name
+     the button takes. The red focus ring comes from the global :focus-visible. */
+  var LB_KEYS = ' tabindex="0" role="button"';
+
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var coarse = window.matchMedia('(hover: none)').matches;
 
@@ -705,7 +712,7 @@
         pic({ src: src, alt: alt, eager: true,
               sizes: shape === 'tall' ? '(max-width:760px) 82vw, 42vw' : '(max-width:760px) 92vw, 80vw',
               attrs: ' style="aspect-ratio:' + d.w + '/' + d.h + '" data-lb="one" data-full="' +
-                     esc(src) + '" data-cap="' + esc(alt) + '" data-cursor="ZOOM"' }) +
+                     esc(src) + '" data-cap="' + esc(alt) + '" data-cursor="ZOOM"' + LB_KEYS }) +
       '</div>' +
       '<figcaption class="grid" style="padding-top:10px">' +
         '<span class="lbl c1-6">' + esc(org) + '</span>' +
@@ -887,7 +894,7 @@
                : shape === 'wide'  ? '(max-width:760px) 92vw, 46vw'
                : '(max-width:420px) 92vw, (max-width:760px) 46vw, 31vw',
           attrs: ' style="aspect-ratio:' + pg.w + '/' + pg.h + '"' +
-                 ' data-full="' + esc(pg.f) + '" data-cap="' + esc(label) + '" data-lb="sheet" data-cursor="ZOOM"' }) +
+                 ' data-full="' + esc(pg.f) + '" data-cap="' + esc(label) + '" data-lb="sheet" data-cursor="ZOOM"' + LB_KEYS }) +
         '</figure>' +
         '<span class="cap"><span class="lbl">' + esc(pages[i].title) + '</span>' +
         '<span class="lbl">' + (pages[i].of > 1 ? pad(pages[i].n) + '/' + pad(pages[i].of) : pad(i + 2)) + '</span></span>' +
@@ -969,7 +976,7 @@
       return '<figure class="plate-fig ' + cls + '">' +
         pic({ src: p.f, alt: alt, w: p.w, h: p.h, eager: i === 0, sizes: size,
               attrs: ' style="aspect-ratio:' + p.w + '/' + p.h + '"' +
-                     ' data-lb="story" data-i="' + i + '" data-cursor="FULL"' }) +
+                     ' data-lb="story" data-i="' + i + '" data-cursor="FULL"' + LB_KEYS }) +
         '<figcaption class="plate-cap">' +
           '<span class="lbl">' + esc(st.place || st.tags) + '</span>' +
           '<span class="lbl">' + pad(i + 1) + ' / ' + pad(fr.length) + '</span>' +
@@ -1783,13 +1790,31 @@
 
   /* ═══════════════════════════════════════════════════════════ BEHAVIOUR ══ */
 
+  /* Opening the viewer, from a pointer or from the keyboard. One path, so the
+     two cannot drift apart. */
+  function openViewer(lb) {
+    if (lb.getAttribute('data-lb') === 'story') LB.open(parseInt(lb.getAttribute('data-i'), 10));
+    else LB.one(lb.getAttribute('data-full'), lb.getAttribute('data-cap'), lb.alt, 'Design');
+  }
+
+  /* Enter and Space on a focused image, which is what a button owes the
+     keyboard. Space is prevented first or the page scrolls out from under the
+     viewer as it opens. The viewer itself already traps focus, moves on the
+     arrows, closes on Escape and returns focus on the way out. */
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+    var lb = e.target && e.target.closest ? e.target.closest('[data-lb]') : null;
+    if (!lb) return;
+    e.preventDefault();
+    openViewer(lb);
+  });
+
   /* Click delegation — one listener for the whole document. */
   document.addEventListener('click', function (e) {
     var lb = e.target.closest ? e.target.closest('[data-lb]') : null;
     if (lb) {
       e.preventDefault();
-      if (lb.getAttribute('data-lb') === 'story') LB.open(parseInt(lb.getAttribute('data-i'), 10));
-      else LB.one(lb.getAttribute('data-full'), lb.getAttribute('data-cap'), lb.alt, 'Design');
+      openViewer(lb);
       return;
     }
     /* Fullscreen first: it sits inside a film block, so it has to be matched

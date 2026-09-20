@@ -156,9 +156,16 @@ copied onto any host, and works from disk.
 ## Accessibility
 
 Semantic markup, one `<h1>` per view, alt text on every image, full keyboard
-support (the viewer traps focus, moves on arrow keys and closes on Escape),
-visible red focus rings, and a reduced-motion mode that turns every transition
-off. Every text colour in `styles.css` was checked against the ground it sits
+support, visible red focus rings, and a reduced-motion mode that turns every
+transition off.
+
+Keyboard support means the whole path, not just the viewer once it is open. The
+images that open the viewer are the control — there is no button drawn over
+them — so each one carries `tabindex="0"` and `role="button"` and answers Enter
+and Space, taking its name from the alt text it already had. Opening that way
+also means focus has somewhere to return to: the viewer traps focus while it is
+open, moves on the arrow keys, closes on Escape and hands focus back to the
+image it came from. Every text colour in `styles.css` was checked against the ground it sits
 on and clears WCAG AA — the metadata grey and the signal red are both a step
 deeper than they look for exactly that reason. If you change a colour, check it.
 
