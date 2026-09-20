@@ -1355,25 +1355,34 @@
      at whatever height we had guessed. */
 
   var VIZ = (function () {
-    var ORIGIN = 'https://flo.uri.sh';
+    var FLOURISH = 'https://flo.uri.sh';
+    var DATAWRAPPER = 'https://datawrapper.dwcdn.net';
     var STALL_MS = 8000;
     var vio = null;   /* mounts frames as they approach the viewport */
     var live = [];    /* what is mounted, so it can all be dropped   */
 
     /* A chart that never reports a height is unpublished, deleted or blocked.
        The visitor gets a link to it rather than an empty rectangle — and the
-       moment it is published in Flourish it simply starts working, with no
-       change to this site. */
+       moment it is published it simply starts working, with no change here. */
     function stall(el) {
       if (el.getAttribute('data-state') !== 'loading') return;
       el.setAttribute('data-state', 'stalled');
+    }
+
+    /* Datawrapper serves the latest version from the unversioned address, so
+       republishing a chart there does not mean editing an id in content.js. */
+    function srcFor(el) {
+      var dw = el.getAttribute('data-dw');
+      return dw
+        ? DATAWRAPPER + '/' + dw + '/'
+        : FLOURISH + '/visualisation/' + el.getAttribute('data-viz') + '/embed?auto=1';
     }
 
     function mount(el) {
       if (el.getAttribute('data-state')) return;
       el.setAttribute('data-state', 'loading');
       var f = document.createElement('iframe');
-      f.src = ORIGIN + '/visualisation/' + el.getAttribute('data-viz') + '/embed?auto=1';
+      f.src = srcFor(el);
       f.title = el.getAttribute('data-title') || 'Chart';
       f.setAttribute('scrolling', 'no');
       f.setAttribute('frameborder', '0');
@@ -1382,24 +1391,49 @@
       window.setTimeout(function () { stall(el); }, STALL_MS);
     }
 
-    /* Flourish posts a JSON string, not an object, and posts it more than once
-       — the first height is the chart before its own layout has settled. Every
-       message is honoured, so the frame follows the chart rather than fixing
-       itself to the first number that arrived. */
-    window.addEventListener('message', function (e) {
-      if (e.origin !== ORIGIN || typeof e.data !== 'string') return;
-      var msg;
-      try { msg = JSON.parse(e.data); } catch (err) { return; }
-      if (!msg || msg.sender !== 'Flourish' || msg.method !== 'resize') return;
+    /* Which mounted frame a message came from. Both services post from the
+       frame itself, so the sending window identifies it — which is sturdier
+       than comparing URL strings, and it is the only thing Datawrapper gives
+       us to go on. */
+    function mountFor(source) {
       for (var i = 0; i < live.length; i++) {
         var f = $('iframe', live[i]);
-        if (!f || f.src !== msg.src) continue;
-        var h = parseFloat(msg.height);
-        if (!(h > 0)) return;
-        live[i].style.height = Math.round(h) + 'px';
-        live[i].setAttribute('data-state', 'ok');
-        return;
+        if (f && f.contentWindow === source) return live[i];
       }
+      return null;
+    }
+
+    /* Two services, two protocols, one behaviour.
+
+       Flourish posts a JSON string: {sender, method:"resize", height}.
+       Datawrapper posts an object: {"datawrapper-height": {<chart id>: 808}}.
+
+       Both post more than once — the first height is the chart before its own
+       layout has settled — so every message is honoured and the frame follows
+       the chart rather than fixing itself to the first number that arrived. */
+    window.addEventListener('message', function (e) {
+      var h = null;
+
+      if (e.origin === FLOURISH && typeof e.data === 'string') {
+        var msg;
+        try { msg = JSON.parse(e.data); } catch (err) { return; }
+        if (!msg || msg.sender !== 'Flourish' || msg.method !== 'resize') return;
+        h = parseFloat(msg.height);
+
+      } else if (e.origin === DATAWRAPPER && e.data && typeof e.data === 'object' &&
+                 e.data['datawrapper-height']) {
+        var map = e.data['datawrapper-height'];
+        for (var k in map) {
+          if (Object.prototype.hasOwnProperty.call(map, k)) { h = parseFloat(map[k]); break; }
+        }
+
+      } else return;
+
+      if (!(h > 0)) return;
+      var el = mountFor(e.source);
+      if (!el) return;
+      el.style.height = Math.round(h) + 'px';
+      el.setAttribute('data-state', 'ok');
     });
 
     return {
@@ -1454,15 +1488,24 @@
   /* One figure. The caption sits above the chart, the way a figure is numbered
      in a report, because that is what these are. */
   function vizFigure(chart, n) {
+    /* Flourish by id, Datawrapper by `dw`. The only difference below is where
+       the frame points and where the fallback link goes. */
+    var attr = chart.dw
+      ? 'data-dw="' + esc(chart.dw) + '"'
+      : 'data-viz="' + esc(chart.id) + '"';
+    var away = chart.dw
+      ? { href: 'https://datawrapper.dwcdn.net/' + esc(chart.dw) + '/', label: 'Open it on Datawrapper' }
+      : { href: 'https://public.flourish.studio/visualisation/' + esc(chart.id) + '/', label: 'Open it on Flourish' };
+
     return '<figure class="viz rv">' +
       '<figcaption class="viz-cap">' +
         '<span class="viz-t">' + esc(chart.title) + '</span>' +
         '<span class="lbl viz-n"><span class="lbl--red">Fig. ' + pad(n) + '</span></span>' +
       '</figcaption>' +
-      '<div class="viz-frame" data-viz="' + esc(chart.id) + '" data-title="' + esc(chart.title) + '">' +
+      '<div class="viz-frame" ' + attr + ' data-title="' + esc(chart.title) + '">' +
         '<p class="viz-off lbl">This chart could not be loaded here. ' +
-          '<a href="https://public.flourish.studio/visualisation/' + esc(chart.id) + '/" ' +
-          'target="_blank" rel="noopener">Open it on Flourish <span aria-hidden="true">↗</span></a>' +
+          '<a href="' + away.href + '" target="_blank" rel="noopener">' + away.label +
+          ' <span aria-hidden="true">↗</span></a>' +
         '</p>' +
       '</div>' +
     '</figure>';

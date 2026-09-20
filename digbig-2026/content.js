@@ -587,14 +587,16 @@ const DESIGN_PROJECTS = [
    the national picture before the city, the city before the sample, the
    sample before the street.
 
-   `id` is the Flourish visualisation id. The site embeds
-   flo.uri.sh/visualisation/<id>/embed?auto=1 directly — no third-party
-   script — and sizes the frame from the resize message Flourish posts back.
+   A chart is either `id` — a Flourish visualisation id — or `dw`, a
+   Datawrapper code. The site embeds the frame itself, with no third-party
+   script, and sizes it from the resize message the service posts back.
+   Datawrapper is addressed without a version, so republishing a chart there
+   does not mean editing a code here.
 
-   A chart only renders for a visitor once it is PUBLISHED in Flourish.
-   An unpublished id shows a link to the chart instead of an empty frame,
-   so the page is never broken, only incomplete. Publish in Flourish and it
-   appears here on the next load — nothing in this file needs changing.
+   A chart only renders for a visitor once it is PUBLISHED. An unpublished
+   one shows a link to itself instead of an empty frame, so the page is never
+   broken, only incomplete. Publish it and it appears here on the next load —
+   nothing in this file needs changing.
 
    The rule at the top of this file holds. The figures describe what was
    measured and how; they do not state findings that the chart itself has
@@ -705,13 +707,21 @@ const VIZ_PROJECTS = [
     roleLine: 'Data preparation and visualisation',
     lede: 'Self-directed reference pieces: the country by state population, and the calendar of large religious and cultural gatherings.',
     context: 'Two pieces made outside any brief, for the reason reference maps usually get made — because the question came up often enough that it was worth drawing once properly.',
-    role: 'Prepared the data and built both in Flourish: a projection map of population by state and union territory, and a hierarchy of recorded and projected attendance at major pilgrimages, fairs and festivals.',
+    role: 'Prepared the data and built the pieces: a projection map of population by state and union territory, and the attendance figures for major pilgrimages, fairs and festivals drawn twice — once as a hierarchy, once as a symbol map.',
+    process: 'The festival data is shown two ways because the two questions it answers are different. A hierarchy ranks and nests: which gathering is largest, and what it sits inside. A symbol map puts the same numbers back on the ground, where the clustering along particular rivers and routes is the thing you actually see.',
     groups: [
       {
         name: 'Reference',
         charts: [
-          { id: 30293929, title: 'India — population by state and union territory' },
-          { id: 30310275, title: 'Indian religious footfall and festival map' }
+          { id: 30293929, title: 'India — population by state and union territory' }
+        ]
+      },
+      {
+        name: 'Religious footfall and festivals, 2026',
+        note: 'The same attendance figures ranked, then placed.',
+        charts: [
+          { id: 30310275, title: 'Attendance by gathering — hierarchy' },
+          { dw: 'ePi99', title: 'Attendance by gathering — symbol map' }
         ]
       }
     ]

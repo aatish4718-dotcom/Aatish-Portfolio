@@ -52,32 +52,40 @@ Common edits:
 
 ## Visualisation
 
-The charts are built in [Flourish](https://flourish.studio) and embedded live,
-so a reader can hover a mark and read the value off it. They are figures from
-research, and they should stay inspectable.
+The charts are built in [Flourish](https://flourish.studio) and
+[Datawrapper](https://www.datawrapper.de) and embedded live, so a reader can
+hover a mark and read the value off it. They are figures from research, and
+they should stay inspectable.
 
-Add one by putting its Flourish id into `VIZ_PROJECTS` in `content.js`:
+Add one to a study's `groups` in `VIZ_PROJECTS` in `content.js`. A Flourish
+chart is its id, a Datawrapper chart is its `dw` code:
 
 ```js
-{ id: 30309649, title: 'Modal split by impairment type' }
+{ id: 30309649, title: 'Modal split by impairment type' }   // Flourish
+{ dw: 'ePi99',  title: 'Attendance by gathering — symbol map' }   // Datawrapper
 ```
 
-The id is the number in the Flourish URL —
-`app.flourish.studio/visualisation/30309649/edit` — and nothing else is needed.
-Charts are grouped into `groups` inside a study, and figures are numbered
+Both are the code in the service's own URL —
+`app.flourish.studio/visualisation/30309649/edit`,
+`datawrapper.dwcdn.net/ePi99/`. Nothing else is needed: figures are numbered
 automatically down the page, so inserting one renumbers the rest.
 
-**A chart has to be published in Flourish before it will render.** An
-unpublished id returns 403 and the site shows a link to the chart instead of an
-empty rectangle. Publish it in Flourish and it starts working here on the next
-page load — nothing in this repository changes.
+Datawrapper is addressed without a version, so republishing a chart there does
+not mean editing an id here. Flourish ids do not change.
 
-No Flourish script is loaded. Their embed script scans the whole document when
-it loads, which is the wrong shape for a site that rebuilds itself on every
-route change; all it does is create an iframe and listen for a height message,
-so `app.js` does those two things directly. The `?auto=1` on the embed URL is
-what makes Flourish post its height back — without it the frame would sit at a
-guessed height.
+**A chart has to be published before it will render.** An unpublished Flourish
+id returns 403, and rather than an empty rectangle the site shows a link to the
+chart. Publish it and it starts working here on the next page load — nothing in
+this repository changes.
+
+Neither service's script is loaded. Both scripts scan the whole document when
+they load, which is the wrong shape for a site that rebuilds itself on every
+route change; all they do is create an iframe and listen for a height message,
+so `app.js` does those two things directly. The two protocols differ — Flourish
+posts a JSON string and needs `?auto=1` on the URL before it will report its
+height at all, Datawrapper posts an object keyed `datawrapper-height` — but
+both post from the frame itself, so the sending window identifies which figure
+to resize.
 
 The same loading discipline as the rest of the site applies, and matters more
 here: a study page can carry twenty-four charts, and twenty-four iframes
