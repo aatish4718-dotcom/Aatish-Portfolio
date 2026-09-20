@@ -785,7 +785,7 @@
 
   function viewDesignIndex() {
     var h = mast({
-      kicker: '03 — Design',
+      kicker: '04 — Design',
       count: designTotal() + ' pieces',
       title: 'DESIGN',
       lede: 'Visual communication for public institutions — campaigns, publications, notices and identity.',
@@ -900,7 +900,7 @@
 
   function viewPhotoIndex() {
     var h = mast({
-      kicker: '04 — Photography',
+      kicker: '05 — Photography',
       count: photoTotal() + ' photographs',
       title: 'ARCHIVE',
       lede: photoTotal() + ' photographs, cut into ' + PHOTO_STORIES.length + ' stories.',
@@ -1104,7 +1104,7 @@
   function viewMotion() {
     var feature = FILMS[0];
     var h = mast({
-      kicker: '05 — Motion',
+      kicker: '06 — Motion',
       count: FILMS.length + ' films · ' + REEL_DATA.length + ' short cuts',
       title: 'MOTION',
       lede: 'Documentary, institutional film and short work — most of it grown out of planning research.',
@@ -1173,7 +1173,7 @@
     }
 
     var h = mast({
-      kicker: '08 — Archive',
+      kicker: '07 — Archive',
       count: docs + ' documents · ' + pages + ' pages',
       title: 'ARCHIVE',
       lede: 'Every report, studio document and deck, readable in full.',
@@ -1238,7 +1238,7 @@
 
   function viewAbout() {
     var h = mast({
-      kicker: '06 — About',
+      kicker: '08 — About',
       count: 'Jodhpur, Rajasthan',
       title: 'AATISH KUMAR',
       lede: 'Urban planner. Visual storyteller.',
@@ -1312,7 +1312,7 @@
 
   function viewContact() {
     return mast({
-      kicker: '07 — Contact',
+      kicker: '09 — Contact',
       count: '26°14′ N / 73°01′ E',
       title: 'SAY HELLO',
       lede: 'Planning, design, photography, film — or some combination that does not have a name yet.',
@@ -1329,6 +1329,224 @@
         factRows([['Based', SITE.base], ['Coordinates', SITE.coords.join(' / ')], ['Practices', 'Planning · Design · Photography · Film']]) +
       '</dl>' +
     '</div>';
+  }
+
+  /* ══════════════════════════════════════════════════════ VISUALISATION ══ */
+
+  /* The charts are built in Flourish and embedded live rather than exported as
+     pictures, because the point of a chart with 117 respondents in it is that
+     you can hover a mark and read the value off it. A screenshot cannot do
+     that, and these are figures from research — they should stay inspectable.
+
+     Flourish ships an embed script that scans the document for placeholder
+     divs when it loads. That is the wrong shape for this site: the page is
+     rebuilt on every route change, so the script would have to be re-run and
+     would re-scan the whole document each time. All the script actually does
+     is create an iframe and listen for a height message, so this does those
+     two things directly. Nothing third-party is loaded.
+
+     The site's loading discipline applies here too, and matters more: a study
+     page can carry twenty-four charts, and twenty-four iframes booting at once
+     would be far heavier than any gallery on the site. So a frame gets no src
+     until it is nearly in view, and every frame is dropped on the way out.
+
+     Flourish only posts its height back when the embed is asked to auto-size,
+     which is what "?auto=1" means on the URL. Without it the frame would sit
+     at whatever height we had guessed. */
+
+  var VIZ = (function () {
+    var ORIGIN = 'https://flo.uri.sh';
+    var STALL_MS = 8000;
+    var vio = null;   /* mounts frames as they approach the viewport */
+    var live = [];    /* what is mounted, so it can all be dropped   */
+
+    /* A chart that never reports a height is unpublished, deleted or blocked.
+       The visitor gets a link to it rather than an empty rectangle — and the
+       moment it is published in Flourish it simply starts working, with no
+       change to this site. */
+    function stall(el) {
+      if (el.getAttribute('data-state') !== 'loading') return;
+      el.setAttribute('data-state', 'stalled');
+    }
+
+    function mount(el) {
+      if (el.getAttribute('data-state')) return;
+      el.setAttribute('data-state', 'loading');
+      var f = document.createElement('iframe');
+      f.src = ORIGIN + '/visualisation/' + el.getAttribute('data-viz') + '/embed?auto=1';
+      f.title = el.getAttribute('data-title') || 'Chart';
+      f.setAttribute('scrolling', 'no');
+      f.setAttribute('frameborder', '0');
+      el.appendChild(f);
+      live.push(el);
+      window.setTimeout(function () { stall(el); }, STALL_MS);
+    }
+
+    /* Flourish posts a JSON string, not an object, and posts it more than once
+       — the first height is the chart before its own layout has settled. Every
+       message is honoured, so the frame follows the chart rather than fixing
+       itself to the first number that arrived. */
+    window.addEventListener('message', function (e) {
+      if (e.origin !== ORIGIN || typeof e.data !== 'string') return;
+      var msg;
+      try { msg = JSON.parse(e.data); } catch (err) { return; }
+      if (!msg || msg.sender !== 'Flourish' || msg.method !== 'resize') return;
+      for (var i = 0; i < live.length; i++) {
+        var f = $('iframe', live[i]);
+        if (!f || f.src !== msg.src) continue;
+        var h = parseFloat(msg.height);
+        if (!(h > 0)) return;
+        live[i].style.height = Math.round(h) + 'px';
+        live[i].setAttribute('data-state', 'ok');
+        return;
+      }
+    });
+
+    return {
+      /* Called after each route is built. Frames already on the page from the
+         previous route are gone with it — innerHTML replaced them. */
+      scan: function () {
+        var frames = $$('.viz-frame');
+        if (!frames.length) return;
+        if (!('IntersectionObserver' in window)) { frames.forEach(mount); return; }
+        if (vio) vio.disconnect();
+        vio = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (!en.isIntersecting) return;
+            mount(en.target);
+            vio.unobserve(en.target);
+          });
+        }, { rootMargin: '400px 0px' });
+        frames.forEach(function (n) { vio.observe(n); });
+      },
+      /* Called before the next route replaces the page. The frames would go
+         with the innerHTML anyway, but a frame that is still loading is torn
+         out mid-navigation, and a cancelled navigation in a subframe is not
+         something to leave to chance — the reels drop their src on the way out
+         for the same reason. Pointing each frame at about:blank first ends its
+         load cleanly, then it is removed. */
+      reset: function () {
+        if (vio) { vio.disconnect(); vio = null; }
+        for (var i = 0; i < live.length; i++) {
+          var f = $('iframe', live[i]);
+          if (!f) continue;
+          try { f.src = 'about:blank'; } catch (e) {}
+          if (f.parentNode) f.parentNode.removeChild(f);
+        }
+        live = [];
+      }
+    };
+  })();
+
+  function vizCharts(p) {
+    var out = [];
+    for (var g = 0; g < p.groups.length; g++) {
+      for (var c = 0; c < p.groups[g].charts.length; c++) out.push(p.groups[g].charts[c]);
+    }
+    return out;
+  }
+  function vizTotal() {
+    var n = 0;
+    for (var i = 0; i < VIZ_PROJECTS.length; i++) n += vizCharts(VIZ_PROJECTS[i]).length;
+    return n;
+  }
+
+  /* One figure. The caption sits above the chart, the way a figure is numbered
+     in a report, because that is what these are. */
+  function vizFigure(chart, n) {
+    return '<figure class="viz rv">' +
+      '<figcaption class="viz-cap">' +
+        '<span class="viz-t">' + esc(chart.title) + '</span>' +
+        '<span class="lbl viz-n"><span class="lbl--red">Fig. ' + pad(n) + '</span></span>' +
+      '</figcaption>' +
+      '<div class="viz-frame" data-viz="' + esc(chart.id) + '" data-title="' + esc(chart.title) + '">' +
+        '<p class="viz-off lbl">This chart could not be loaded here. ' +
+          '<a href="https://public.flourish.studio/visualisation/' + esc(chart.id) + '/" ' +
+          'target="_blank" rel="noopener">Open it on Flourish <span aria-hidden="true">↗</span></a>' +
+        '</p>' +
+      '</div>' +
+    '</figure>';
+  }
+
+  function viewVizIndex() {
+    var h = mast({
+      kicker: '03 — Visualisation',
+      count: vizTotal() + ' charts',
+      title: 'VISUALISATION',
+      lede: 'The data behind the planning work, drawn so it can be read — census tabulations, primary surveys and street audits.',
+      note: vizTotal() + ' interactive charts across ' + VIZ_PROJECTS.length + ' studies. Every one is live: hover a mark and it gives you the number. They are figures from research, not illustrations of it.'
+    });
+    h += '<div class="idx">';
+    for (var i = 0; i < VIZ_PROJECTS.length; i++) {
+      var p = VIZ_PROJECTS[i];
+      h += '<a class="idx-row rv" href="#/visualisation/' + p.slug + '">' +
+        '<span class="n">' + pad(i + 1) + '</span>' +
+        '<span class="t">' + esc(p.title) + '</span>' +
+        '<span class="m lbl">' + esc(p.category) + '</span>' +
+        '<span class="y lbl">' + esc(p.year || p.meta || '') + '</span>' +
+        '<span class="go" aria-hidden="true">→</span>' +
+      '</a>';
+    }
+    return h + '</div>';
+  }
+
+  function viewVizProject(slug) {
+    var p = bySlug(VIZ_PROJECTS, slug);
+    if (!p) return notFound();
+    var nb = neighbours(VIZ_PROJECTS, slug);
+    var all = vizCharts(p);
+
+    var facts = [
+      ['Source', p.client],
+      ['Category', p.category],
+      ['Year', p.year],
+      ['Place', p.place],
+      ['Role', p.roleLine],
+      ['Figures', all.length + ' charts']
+    ].filter(function (r) { return r[1]; });
+
+    var h = crumb('#/visualisation', 'Visualisation index');
+    h += '<div class="mast">' +
+      '<div class="grid mast-top">' +
+        '<p class="lbl c1-6"><span class="lbl--red">' + pad(nb.i + 1) + '</span> / ' + pad(VIZ_PROJECTS.length) + ' — Visualisation</p>' +
+        '<p class="lbl c10-12 ta-r hide-sm">' + esc([p.year || p.meta, p.place].filter(Boolean).join(' · ')) + '</p>' +
+      '</div>' +
+      '<div class="grid"><h1>' + esc(p.title) + '</h1></div>' +
+      '<div class="grid mast-sub">' +
+        '<p class="lede c1-6">' + esc(p.lede) + '</p>' +
+        '<div class="c8-12"><dl class="facts" style="margin-top:0">' + factRows(facts) + '</dl></div>' +
+      '</div>' +
+    '</div>';
+
+    h += '<div class="grid"><div class="c1-12">';
+    h += chapter('Context', p.context);
+    h += chapter('Role', p.role, p.roleLine);
+    if (p.process) h += chapter('Process', p.process);
+    h += '</div></div>';
+
+    /* The figures, in the order the study runs. */
+    var n = 0;
+    for (var g = 0; g < p.groups.length; g++) {
+      var grp = p.groups[g];
+      h += '<div class="chap viz-group"><div class="grid">' +
+        '<h2 class="c1-12">' + esc(grp.name) + '</h2>' +
+        (grp.note ? '<p class="body-sm c1-6">' + esc(grp.note) + '</p>' : '') +
+      '</div>';
+      for (var c = 0; c < grp.charts.length; c++) h += vizFigure(grp.charts[c], ++n);
+      h += '</div>';
+    }
+
+    if (p.doc) {
+      h += '<div class="grid sec-more"><a class="more c1-12" href="' + esc(p.doc.href) +
+        '" target="_blank" rel="noopener">' + esc(p.doc.label) + ' <span aria-hidden="true">↗</span></a></div>';
+    }
+    if (p.planSlug) {
+      h += '<div class="grid sec-more"><a class="more c1-12" href="#/plan/' + p.planSlug +
+        '">Read the planning case <span aria-hidden="true">→</span></a></div>';
+    }
+
+    h += '<div class="grid" style="padding-top:var(--sec)">' + pager(nb.prev, nb.next, 'visualisation') + '</div>';
+    return h;
   }
 
   function notFound() {
@@ -1348,6 +1566,8 @@
     { re: /^\/?$/,                    key: 'home' },
     { re: /^\/plan$/,                 key: 'plan',        fn: viewPlanIndex },
     { re: /^\/plan\/(.+)$/,           key: 'plan',        fn: viewPlanProject },
+    { re: /^\/visualisation$/,        key: 'visualisation', fn: viewVizIndex },
+    { re: /^\/visualisation\/(.+)$/,  key: 'visualisation', fn: viewVizProject },
     { re: /^\/design$/,               key: 'design',      fn: viewDesignIndex },
     { re: /^\/design\/(.+)$/,         key: 'design',      fn: viewDesignProject },
     { re: /^\/photography$/,          key: 'photography', fn: viewPhotoIndex },
@@ -1389,6 +1609,7 @@
     LB.close();
     LB.set([], '');
     stopFilms();
+    VIZ.reset();
 
     var match = null, arg = null;
     for (var i = 0; i < ROUTES.length; i++) {
@@ -1418,6 +1639,7 @@
     document.title = titleFor(match.key, arg);
     window.scrollTo(reduceMotion ? { top: 0 } : { top: 0, behavior: 'instant' });
     observeReveals();
+    VIZ.scan();
     closeDrawer();
   }
 
@@ -1426,6 +1648,7 @@
     if (key === 'home') return 'Aatish Kumar — Urban Planner & Visual Storyteller | DigBig Studio';
     if (key === 'plan' && arg) { var p = bySlug(PLAN_PROJECTS, arg); if (p) return p.title + base; }
     if (key === 'design' && arg) { var d = bySlug(DESIGN_PROJECTS, arg); if (d) return d.title + base; }
+    if (key === 'visualisation' && arg) { var v = bySlug(VIZ_PROJECTS, arg); if (v) return v.title + base; }
     if (key === 'photography' && arg) { var s = storyBySlug(arg); if (s) return s.title + base; }
     return key.charAt(0).toUpperCase() + key.slice(1) + base;
   }

@@ -580,6 +580,145 @@ const DESIGN_PROJECTS = [
 ];
 
 /* ---------------------------------------------------------------------------
+   VISUALISATION — the charts, built in Flourish and embedded live.
+
+   Each entry is a study, not a chart. The charts inside it are the figures
+   from that study, in reading order, grouped the way the argument runs:
+   the national picture before the city, the city before the sample, the
+   sample before the street.
+
+   `id` is the Flourish visualisation id. The site embeds
+   flo.uri.sh/visualisation/<id>/embed?auto=1 directly — no third-party
+   script — and sizes the frame from the resize message Flourish posts back.
+
+   A chart only renders for a visitor once it is PUBLISHED in Flourish.
+   An unpublished id shows a link to the chart instead of an empty frame,
+   so the page is never broken, only incomplete. Publish in Flourish and it
+   appears here on the next load — nothing in this file needs changing.
+
+   The rule at the top of this file holds. The figures describe what was
+   measured and how; they do not state findings that the chart itself has
+   to make. No year, client or institution below is guessed.
+   ------------------------------------------------------------------------ */
+const VIZ_PROJECTS = [
+  {
+    slug: 'accessibility-delhi',
+    title: 'Planning for Persons with Disabilities',
+    year: '2022', place: 'Delhi',
+    category: 'Thesis / Census analysis / Primary survey',
+    client: 'School of Planning and Architecture, New Delhi',
+    roleLine: 'Research, survey design, analysis and visualisation',
+    lede: 'The evidence base of the thesis, drawn as figures — a national census, a city, a survey of 117 people and one audited sub-zone.',
+    context: 'Accessibility is written into standards and almost never into streets. The thesis took Delhi as its ground; these are the figures it was argued from. They run at four scales, and the point of the sequence is the narrowing: what the Census can tell you about a country, what it can tell you about a city, what only asking 117 people will tell you, and what is left that you can only find by walking a footpath with a measuring tape.',
+    role: 'Bachelor of Planning thesis at the School of Planning and Architecture, New Delhi, completed with First Class. The Census tabulations were re-cut by type, age, sex, district and residence; the primary survey of 117 respondents was designed, run and coded; the pathway audit scored stretches in Sub-zone F1 against a fixed set of factors.',
+    process: 'Census 2011 is the only source that covers everyone, and it is also the bluntest — it counts disability by type and leaves the street out entirely. So each scale is there to catch what the one above it misses. The survey asks about travel, work and schooling, which no tabulation records. The audit scores kerbs, widths and crossings, which no respondent should have to describe from memory.',
+    planSlug: 'universal-access',
+    doc: { href: 'docs/Aatish_Kumar_Thesis_Planning_for_Persons_with_Disabilities.pdf', label: 'Read the full thesis, 112 pages (PDF)' },
+    groups: [
+      {
+        name: 'The national picture — Census 2011',
+        note: 'Six cuts of the same national tabulation. Type, age and sex first, then the urban and rural split, which is the one that matters for a planner and the one the headline figure hides.',
+        charts: [
+          { id: 30309444, title: 'Distribution of persons with disabilities by type — India' },
+          { id: 30309638, title: 'Prevalence of disability by age and sex — India' },
+          { id: 30309447, title: 'Persons with disabilities by sex and type — India' },
+          { id: 30309639, title: 'Urban and rural share of persons with disabilities — India' },
+          { id: 30309448, title: 'Proportion of disabled population by residence, 2001 and 2011' },
+          { id: 30309398, title: 'Disability type by residence — India' }
+        ]
+      },
+      {
+        name: 'Delhi — Census 2011',
+        note: 'The same source cut to one city and then to its districts, so the question stops being how many and becomes where.',
+        charts: [
+          { id: 30309641, title: 'Persons with disabilities by type — Delhi' },
+          { id: 30309455, title: 'Persons with disabilities by age group and sex — Delhi' },
+          { id: 30309452, title: 'District share of Delhi’s disabled population' },
+          { id: 30309882, title: 'Disability prevalence rate by district — Delhi' },
+          { id: 30309875, title: 'Disability type by district, scaled to district size' },
+          { id: 30309395, title: 'Persons with disabilities by district and type — urban Delhi' },
+          { id: 30309399, title: 'Disability type by age group — Delhi' }
+        ]
+      },
+      {
+        name: 'The primary survey — 117 respondents',
+        note: 'What the Census does not ask. Each respondent is one mark in the first figure; the rest of the group cuts that same sample by education, work and how people actually move through the city.',
+        charts: [
+          { id: 30309877, title: 'The 117 respondents' },
+          { id: 30309405, title: 'Composition of the 117-person sample' },
+          { id: 30309643, title: 'Respondents by age group and impairment type' },
+          { id: 30309383, title: 'Education attainment by impairment type' },
+          { id: 30309404, title: 'Occupational structure by impairment type' },
+          { id: 30309401, title: 'Travel independence by impairment type' },
+          { id: 30309649, title: 'Modal split by impairment type' }
+        ]
+      },
+      {
+        name: 'The pathway audit — Sub-zone F1',
+        note: 'One sub-zone, walked and scored stretch by stretch. This is the scale at which accessibility either exists or does not.',
+        charts: [
+          { id: 30309366, title: 'Pathway accessibility audit — Sub-zone F1' },
+          { id: 30309441, title: 'Mean accessibility score by factor' },
+          { id: 30309442, title: 'Pathway stretches ranked by accessibility score' },
+          { id: 30309872, title: 'Accessibility profile — best, worst and mean stretch' }
+        ]
+      }
+    ]
+  },
+  {
+    slug: 'walkability-taimoor-nagar',
+    title: 'Walkability — Taimoor Nagar and New Friends Colony',
+    place: 'Delhi',
+    category: 'Studio / Street audit / Transport',
+    client: 'School of Planning and Architecture, New Delhi',
+    roleLine: 'Street audit, scoring and visualisation',
+    /* Semester III is stated on the sheets; the archive dates that semester
+       Aug–Dec 2019. No year is asserted on the charts themselves. */
+    meta: 'Semester III · Second year',
+    lede: 'A street audit of two adjacent Delhi neighbourhoods, scored section by section and plotted against the things that were measured on the ground.',
+    context: 'Taimoor Nagar and New Friends Colony sit next to each other and are not walked the same way. The studio scored the streets of both against a fixed instrument, which makes the comparison a matter of record rather than impression.',
+    role: 'Audited and scored streets by section, then drew the results four ways — as a heatmap of every street and section, as a profile by road hierarchy, and as two scatters testing the score against footpath width and against vehicle speed.',
+    process: 'A score is only as good as what it is tested against. The two scatters exist to check the instrument: if effective footpath width and driver behaviour do not move with the walkability score, the score is measuring something other than walking.',
+    groups: [
+      {
+        name: 'The audit',
+        charts: [
+          { id: 30309933, title: 'Walkability scores by street and section' },
+          { id: 30309935, title: 'Walkability profile by road hierarchy' }
+        ]
+      },
+      {
+        name: 'Testing the score',
+        note: 'The score plotted against what was measured on the street.',
+        charts: [
+          { id: 30309939, title: 'Effective footpath width against walkability score' },
+          { id: 30309940, title: 'Vehicle speed against driver behaviour and safety score' }
+        ]
+      }
+    ]
+  },
+  {
+    slug: 'india-reference-maps',
+    title: 'India — Reference Maps',
+    place: 'India',
+    category: 'Self-directed / Reference',
+    roleLine: 'Data preparation and visualisation',
+    lede: 'Self-directed reference pieces: the country by state population, and the calendar of large religious and cultural gatherings.',
+    context: 'Two pieces made outside any brief, for the reason reference maps usually get made — because the question came up often enough that it was worth drawing once properly.',
+    role: 'Prepared the data and built both in Flourish: a projection map of population by state and union territory, and a hierarchy of recorded and projected attendance at major pilgrimages, fairs and festivals.',
+    groups: [
+      {
+        name: 'Reference',
+        charts: [
+          { id: 30293929, title: 'India — population by state and union territory' },
+          { id: 30310275, title: 'Indian religious footfall and festival map' }
+        ]
+      }
+    ]
+  }
+];
+
+/* ---------------------------------------------------------------------------
    MOTION — films published on the channel. No years are asserted: the CV
    dates the research, not the release, and nothing here should be guessed.
    ------------------------------------------------------------------------ */

@@ -1756,3 +1756,78 @@ details.cat-empty[open] > .cat-sum .cat-t { color: var(--red); }
 @media (max-width: 760px) {
   .cat-docs .arc-docs { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px var(--gut); }
 }
+
+/* ─────────────────────────────────────────────────────── VISUALISATION ── */
+/* A chart is neither artwork nor a photograph — it is a figure, so it is
+   numbered like one.
+
+   It sits on white in both themes, for the same reason the poster sheet does:
+   a Flourish embed brings its own white ground with it, and inverting the page
+   around it would only produce a bright rectangle with a dark rim. The white
+   is the chart's paper, not the site's surface.
+
+   The frame's height is set from the message Flourish posts back, so there is
+   no ratio here to keep in step with the chart. Before that message arrives
+   the min-height below is holding the space — it is a floor, never the final
+   height. */
+
+.viz-group > .viz:first-of-type { margin-top: clamp(20px, 2.6vw, 34px); }
+.viz { margin-bottom: clamp(34px, 4.4vw, 68px); }
+.viz:last-child { margin-bottom: 0; }
+
+.viz-cap {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--gut);
+  padding-bottom: 10px; margin-bottom: clamp(12px, 1.4vw, 18px);
+  border-bottom: 1px solid var(--rule);
+}
+.viz-t {
+  font: 500 clamp(15px, .92vw, 19px)/1.35 var(--sans);
+  color: var(--ink); letter-spacing: -.01em;
+}
+.viz-n { white-space: nowrap; }
+
+.viz-frame {
+  position: relative;
+  min-height: 320px;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  transition: height .25s ease;
+}
+.viz-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
+
+/* Until the chart reports back, the frame is an empty white field with the
+   hairline of a figure. Deliberately not a spinner: the charts arrive in well
+   under a second on a normal connection, and a spinner per figure on a page of
+   twenty-four would be its own kind of noise. */
+.viz-frame[data-state="loading"]::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(var(--paper-2), var(--paper-2));
+  opacity: .55; pointer-events: none;
+}
+.viz-frame[data-state="ok"] { min-height: 0; }
+.viz-frame[data-state="ok"]::after { display: none; }
+
+/* The honest failure. A chart that is not published yet — or is blocked, or
+   has been deleted — shows where it went instead of an empty rectangle. */
+.viz-off {
+  display: none;
+  position: absolute; inset: 0;
+  flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  margin: 0; padding: 0 24px; text-align: center;
+  color: var(--mute);
+}
+.viz-frame[data-state="stalled"] { min-height: 180px; height: auto !important; }
+.viz-frame[data-state="stalled"] iframe { display: none; }
+.viz-frame[data-state="stalled"] .viz-off { display: flex; }
+.viz-off a { color: var(--red); text-decoration: none; border-bottom: 1px solid currentColor; }
+.viz-off a:hover { color: var(--ink); }
+
+@media (max-width: 760px) {
+  .viz-cap { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .viz-frame { min-height: 380px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viz-frame { transition: none; }
+}

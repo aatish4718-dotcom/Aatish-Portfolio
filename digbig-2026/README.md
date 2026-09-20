@@ -48,6 +48,45 @@ Common edits:
   names under `design/`. The page count, the contact sheet and the block widths
   are all derived from `design-data.js`.
 - **Change what the home page leads with** — `SELECTED`.
+- **Add a chart** — see Visualisation below.
+
+## Visualisation
+
+The charts are built in [Flourish](https://flourish.studio) and embedded live,
+so a reader can hover a mark and read the value off it. They are figures from
+research, and they should stay inspectable.
+
+Add one by putting its Flourish id into `VIZ_PROJECTS` in `content.js`:
+
+```js
+{ id: 30309649, title: 'Modal split by impairment type' }
+```
+
+The id is the number in the Flourish URL —
+`app.flourish.studio/visualisation/30309649/edit` — and nothing else is needed.
+Charts are grouped into `groups` inside a study, and figures are numbered
+automatically down the page, so inserting one renumbers the rest.
+
+**A chart has to be published in Flourish before it will render.** An
+unpublished id returns 403 and the site shows a link to the chart instead of an
+empty rectangle. Publish it in Flourish and it starts working here on the next
+page load — nothing in this repository changes.
+
+No Flourish script is loaded. Their embed script scans the whole document when
+it loads, which is the wrong shape for a site that rebuilds itself on every
+route change; all it does is create an iframe and listen for a height message,
+so `app.js` does those two things directly. The `?auto=1` on the embed URL is
+what makes Flourish post its height back — without it the frame would sit at a
+guessed height.
+
+The same loading discipline as the rest of the site applies, and matters more
+here: a study page can carry twenty-four charts, and twenty-four iframes
+booting at once would be heavier than any gallery on the site. A frame gets no
+`src` until it is within 400px of the viewport, and every frame is dropped on
+the way out of the route.
+
+Charts sit on white in both themes, for the same reason the poster sheet does —
+a Flourish embed brings its own white ground with it.
 
 ## Images
 
@@ -92,6 +131,8 @@ about a dozen.
 #/                      Home — selected work
 #/plan                  Planning index
 #/plan/<slug>           Planning case study
+#/visualisation         Visualisation index
+#/visualisation/<slug>  One study, its charts as numbered figures
 #/design                Design index
 #/design/<slug>         Design case study
 #/photography           The archive — 12 stories
