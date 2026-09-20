@@ -844,17 +844,17 @@ const TIMELINE = [
    résumé list. Nothing here claims a proficiency level.
 
    Every entry is on the CV's own Software Skills list, with QGIS and ArcGIS
-   named where the CV says only "GIS", with one exception: Flourish and
-   Datawrapper are not on the CV. They are here because the Visualisation
-   section is built with them — thirty-one published charts — which is the
-   better evidence of the two, and the same standard the rest of this file
-   works to: the work itself counts as a source. If the CV is revised, they
-   belong on it. */
+   named where the CV says only "GIS", except for the four under Data. None of
+   those is on the CV. Flourish and Datawrapper are evidenced by the site
+   itself — the Visualisation section is built with them, thirty-one published
+   charts — and Power BI and Visme are named by Aatish, who is the authority on
+   what he works in. The CV is simply out of date on this, and should be
+   revised to match. */
 const TOOLS = [
   { g: 'Planning',      sub: 'Maps / CAD / GIS',
     items: ['AutoCAD', 'SketchUp', 'GIS'] },
   { g: 'Data',          sub: 'Charts / Maps / Dashboards',
-    items: ['Flourish', 'Datawrapper'] },
+    items: ['Flourish', 'Datawrapper', 'Power BI', 'Visme'] },
   { g: 'Design',        sub: 'Image / Layout / Interface',
     items: ['Photoshop', 'Illustrator', 'InDesign', 'Figma', 'Canva'] },
   { g: 'Documentation', sub: 'Reports / Presentations / Spreadsheets',

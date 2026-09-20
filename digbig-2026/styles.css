@@ -1356,7 +1356,12 @@ details[open] > .arc-sum .arc-sum-i::after { transform: rotate(0deg); }
 .tool { grid-column: auto; border-top: 1px solid var(--ink); padding-top: 14px; position: relative; }
 .tool-n { display: block; color: var(--red); margin-bottom: 10px; }
 .tool h3 { font-size: clamp(17px, 1.3vw, 23px); font-weight: 600; letter-spacing: -.028em; }
-.tool-sub { display: block; margin: 6px 0 14px; }
+/* Room for two lines whether or not this one needs them. At five columns the
+   longest subtitle wraps and the one below it started a line lower than the
+   other four, which is the kind of half-line drift this grid exists to stop.
+   Reserving the space keeps every list starting on the same baseline, and
+   keeps it that way the next time a subtitle is reworded. */
+.tool-sub { display: block; margin: 6px 0 14px; line-height: 1.3; min-height: 2.6em; }
 .tool li {
   padding: 7px 0; border-bottom: 1px solid var(--rule);
   font-size: clamp(13.5px, .76vw, 15.5px); color: var(--char);
