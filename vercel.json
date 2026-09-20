@@ -2,6 +2,13 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "outputDirectory": "digbig-2026",
+  "redirects": [
+    {
+      "source": "/images/Aatish_Kumar_CV.pdf",
+      "destination": "/images/Aatish_Kumar_CV_2026.pdf",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/photos/(.*)",

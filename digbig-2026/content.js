@@ -26,7 +26,7 @@ const SITE = {
      LinkedIn and the CV are the contact routes. */
   instagram: 'https://www.instagram.com/mad_zombie_/',
   linkedin: 'https://www.linkedin.com/in/aatish4718/',
-  cv: 'images/Aatish_Kumar_CV.pdf',
+  cv: 'images/Aatish_Kumar_CV_2026.pdf',
   lede: 'I work between maps, cities, images and moving stories.',
   intro: 'Urban planning, visual communication, photography and film — connected through one way of seeing.'
 };
@@ -843,13 +843,11 @@ const TIMELINE = [
    chart, then design, then document, then image and film — rather than as a
    résumé list. Nothing here claims a proficiency level.
 
-   Every entry is on the CV's own Software Skills list, with QGIS and ArcGIS
-   named where the CV says only "GIS", except for the four under Data. None of
-   those is on the CV. Flourish and Datawrapper are evidenced by the site
-   itself — the Visualisation section is built with them, thirty-one published
-   charts — and Power BI and Visme are named by Aatish, who is the authority on
-   what he works in. The CV is simply out of date on this, and should be
-   revised to match. */
+   Every entry is on the CV's own software lists, with QGIS and ArcGIS named
+   where the CV says only "GIS", and Word covered by its "MS Office". The Data
+   stage is not an invention of this site either: the CV carries a "Data
+   Visualisation Tools" line of its own, listing Flourish, Datawrapper and
+   Power BI, with Visme under Software. */
 const TOOLS = [
   { g: 'Planning',      sub: 'Maps / CAD / GIS',
     items: ['AutoCAD', 'SketchUp', 'GIS'] },
