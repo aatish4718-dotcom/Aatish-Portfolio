@@ -840,30 +840,39 @@ const TIMELINE = [
 ];
 
 /* Software, arranged as the route a project actually travels — map, then
-   design, then document, then image and film — rather than as a résumé list.
+   chart, then design, then document, then image and film — rather than as a
+   résumé list. Nothing here claims a proficiency level.
+
    Every entry is on the CV's own Software Skills list, with QGIS and ArcGIS
-   named where the CV says only "GIS". Nothing here claims a proficiency level. */
+   named where the CV says only "GIS", with one exception: Flourish and
+   Datawrapper are not on the CV. They are here because the Visualisation
+   section is built with them — thirty-one published charts — which is the
+   better evidence of the two, and the same standard the rest of this file
+   works to: the work itself counts as a source. If the CV is revised, they
+   belong on it. */
 const TOOLS = [
   { g: 'Planning',      sub: 'Maps / CAD / GIS',
     items: ['AutoCAD', 'SketchUp', 'GIS'] },
+  { g: 'Data',          sub: 'Charts / Maps / Dashboards',
+    items: ['Flourish', 'Datawrapper'] },
   { g: 'Design',        sub: 'Image / Layout / Interface',
     items: ['Photoshop', 'Illustrator', 'InDesign', 'Figma', 'Canva'] },
-  { g: 'Documentation', sub: 'Reports / Presentations / Data',
+  { g: 'Documentation', sub: 'Reports / Presentations / Spreadsheets',
     items: ['Word', 'PowerPoint', 'Excel'] },
   { g: 'Media',         sub: 'Photography / Video / Editing',
     items: ['Lightroom', 'Premiere Pro', 'After Effects'] }
 ];
 
 const CAPABILITIES = [
-  { g: 'Planning', items: ['Urban Planning', 'Urban Research', 'Field Documentation', 'Detailed Project Reports', 'Stakeholder Coordination', 'Report Writing'] },
-  { g: 'Design', items: ['Visual Communication', 'IEC / BCC', 'Campaign Design', 'Information Design', 'Publication Layout', 'Presentation Design'] },
+  { g: 'Planning', items: ['Urban Planning', 'Urban Research', 'Field Documentation', 'Primary Survey Design', 'Detailed Project Reports', 'Stakeholder Coordination', 'Report Writing'] },
+  { g: 'Design', items: ['Visual Communication', 'Data Visualisation', 'IEC / BCC', 'Campaign Design', 'Information Design', 'Publication Layout', 'Presentation Design'] },
   { g: 'Visual', items: ['Photography', 'Videography', 'Documentary', 'Motion', 'Editing', 'Social Media'] }
 ];
 
 const ABOUT_BODY = [
   'I work between maps, cities, images and moving stories.',
   'With a background in urban planning, I am interested in how places are planned, experienced and communicated. I trained at the School of Planning and Architecture in New Delhi, wrote a thesis on planning for persons with disabilities, and have worked since on urban research, field documentation and communication for public institutions.',
-  'My work moves between urban planning, visual communication, photography and film — looking for the space where analytical thinking and visual storytelling meet. In practice that means the same week can hold a detailed project report, a ward-level awareness campaign, and a night on a fixed mount waiting for a star trail to close.'
+  'My work moves between urban planning, data visualisation, visual communication, photography and film — looking for the space where analytical thinking and visual storytelling meet. In practice that means the same week can hold a detailed project report, a chart that makes a census tabulation legible, a ward-level awareness campaign, and a night on a fixed mount waiting for a star trail to close.'
 ];
 
 /* ---------------------------------------------------------------------------

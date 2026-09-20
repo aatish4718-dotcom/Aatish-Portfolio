@@ -1345,11 +1345,15 @@ details[open] > .arc-sum .arc-sum-i::after { transform: rotate(0deg); }
 /* ───────────────────────────────────────────────────────────── TOOLS ── */
 .tools-route { padding-bottom: clamp(18px, 2.4vw, 30px); }
 .tools-route span { color: var(--red); padding: 0 .3em; }
+/* Five stages, so the row holds five. This was a 12-column grid with each tool
+   spanning 3, which fitted four and left the fifth stranded on a row of its
+   own at a quarter width. The container spans the full measure either way, so
+   the outer edges still line up with the page grid. */
 .tools {
-  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr));
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
   column-gap: var(--gut); row-gap: var(--blk);
 }
-.tool { grid-column: span 3; border-top: 1px solid var(--ink); padding-top: 14px; position: relative; }
+.tool { grid-column: auto; border-top: 1px solid var(--ink); padding-top: 14px; position: relative; }
 .tool-n { display: block; color: var(--red); margin-bottom: 10px; }
 .tool h3 { font-size: clamp(17px, 1.3vw, 23px); font-weight: 600; letter-spacing: -.028em; }
 .tool-sub { display: block; margin: 6px 0 14px; }
@@ -1357,8 +1361,10 @@ details[open] > .arc-sum .arc-sum-i::after { transform: rotate(0deg); }
   padding: 7px 0; border-bottom: 1px solid var(--rule);
   font-size: clamp(13.5px, .76vw, 15.5px); color: var(--char);
 }
-@media (max-width: 1080px) { .tool { grid-column: span 6; } }
-@media (max-width: 560px)  { .tool { grid-column: 1 / -1; } }
+/* Three then one, rather than two — five items across two columns strands one
+   again, which is the thing this is avoiding. */
+@media (max-width: 1080px) { .tools { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 620px)  { .tools { grid-template-columns: 1fr; } }
 
 /* ────────────────────────────────────────────────────────── FOOTER ── */
 .ft { background: var(--inv-bg); color: var(--inv-fg); margin-top: var(--sec); }

@@ -1288,13 +1288,13 @@
     }
     h += '</div></div>';
 
-    /* Tools, set as a route rather than a résumé list: the four stages a
-       project passes through, with the software named under each. Type only —
-       a wall of vendor logos would wreck the page and say less. */
+    /* Tools, set as a route rather than a résumé list: the stages a project
+       passes through, with the software named under each. Type only — a wall
+       of vendor logos would wreck the page and say less. */
     h += '<div class="chap"><div class="grid"><h2 class="c1-12">Tools</h2></div>' +
-         '<p class="lbl tools-route">Map <span aria-hidden="true">→</span> Design ' +
-         '<span aria-hidden="true">→</span> Document <span aria-hidden="true">→</span> Image ' +
-         '<span aria-hidden="true">→</span> Film</p>' +
+         '<p class="lbl tools-route">Map <span aria-hidden="true">→</span> Chart ' +
+         '<span aria-hidden="true">→</span> Design <span aria-hidden="true">→</span> Document ' +
+         '<span aria-hidden="true">→</span> Image <span aria-hidden="true">→</span> Film</p>' +
          '<div class="tools">';
     for (var t = 0; t < TOOLS.length; t++) {
       h += '<div class="tool rv">' +
