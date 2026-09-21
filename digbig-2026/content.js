@@ -616,7 +616,27 @@ const VIZ_PROJECTS = [
     process: 'Census 2011 is the only source that covers everyone, and it is also the bluntest — it counts disability by type and leaves the street out entirely. So each scale is there to catch what the one above it misses. The survey asks about travel, work and schooling, which no tabulation records. The audit scores kerbs, widths and crossings, which no respondent should have to describe from memory.',
     planSlug: 'universal-access',
     doc: { href: 'docs/Aatish_Kumar_Thesis_Planning_for_Persons_with_Disabilities.pdf', label: 'Read the full thesis, 112 pages (PDF)' },
+    /* The seven figures that do not look like the others lead the study. A
+       reader meeting twenty-four charts should not meet six variations of the
+       same bar first; the forms that carry the most at a glance — the
+       marimekko, the two heatmaps, the parliament, the hierarchy, the radar —
+       are pulled to the front. They are moved, not repeated: each one is gone
+       from the scale group it came from, and the four scales below run on the
+       remaining seventeen in the same order as before. */
     groups: [
+      {
+        name: 'Selected figures',
+        note: 'The forms the study used, gathered at the front — a marimekko scaled to district size, two heatmaps, a parliament of one mark per respondent, a hierarchy of the sample, and a radar profile of one street. The study then runs in full below, at its four scales.',
+        charts: [
+          { id: 30309875, title: 'Disability type by district, scaled to district size' },
+          { id: 30309395, title: 'Persons with disabilities by district and type — urban Delhi' },
+          { id: 30309399, title: 'Disability type by age group — Delhi' },
+          { id: 30309877, title: 'The 117 respondents' },
+          { id: 30309405, title: 'Composition of the 117-person sample' },
+          { id: 30309366, title: 'Pathway accessibility audit — Sub-zone F1' },
+          { id: 30309872, title: 'Accessibility profile — best, worst and mean stretch' }
+        ]
+      },
       {
         name: 'The national picture — Census 2011',
         note: 'Six cuts of the same national tabulation. Type, age and sex first, then the urban and rural split, which is the one that matters for a planner and the one the headline figure hides.',
@@ -631,23 +651,18 @@ const VIZ_PROJECTS = [
       },
       {
         name: 'Delhi — Census 2011',
-        note: 'The same source cut to one city and then to its districts, so the question stops being how many and becomes where.',
+        note: 'The same source cut to one city and then to its districts, so the question stops being how many and becomes where. The district marimekko and the age heatmap are among the opening figures.',
         charts: [
           { id: 30309641, title: 'Persons with disabilities by type — Delhi' },
           { id: 30309455, title: 'Persons with disabilities by age group and sex — Delhi' },
           { id: 30309452, title: 'District share of Delhi’s disabled population' },
-          { id: 30309882, title: 'Disability prevalence rate by district — Delhi' },
-          { id: 30309875, title: 'Disability type by district, scaled to district size' },
-          { id: 30309395, title: 'Persons with disabilities by district and type — urban Delhi' },
-          { id: 30309399, title: 'Disability type by age group — Delhi' }
+          { id: 30309882, title: 'Disability prevalence rate by district — Delhi' }
         ]
       },
       {
         name: 'The primary survey — 117 respondents',
-        note: 'What the Census does not ask. Each respondent is one mark in the first figure; the rest of the group cuts that same sample by education, work and how people actually move through the city.',
+        note: 'What the Census does not ask. The same 117 people cut by education, by work, and by how they actually move through the city. The sample itself is drawn at the front, one mark to a person.',
         charts: [
-          { id: 30309877, title: 'The 117 respondents' },
-          { id: 30309405, title: 'Composition of the 117-person sample' },
           { id: 30309643, title: 'Respondents by age group and impairment type' },
           { id: 30309383, title: 'Education attainment by impairment type' },
           { id: 30309404, title: 'Occupational structure by impairment type' },
@@ -657,12 +672,10 @@ const VIZ_PROJECTS = [
       },
       {
         name: 'The pathway audit — Sub-zone F1',
-        note: 'One sub-zone, walked and scored stretch by stretch. This is the scale at which accessibility either exists or does not.',
+        note: 'One sub-zone, walked and scored stretch by stretch. This is the scale at which accessibility either exists or does not. The scored grid and the profile of the best and worst stretch both open the study.',
         charts: [
-          { id: 30309366, title: 'Pathway accessibility audit — Sub-zone F1' },
           { id: 30309441, title: 'Mean accessibility score by factor' },
-          { id: 30309442, title: 'Pathway stretches ranked by accessibility score' },
-          { id: 30309872, title: 'Accessibility profile — best, worst and mean stretch' }
+          { id: 30309442, title: 'Pathway stretches ranked by accessibility score' }
         ]
       }
     ]
