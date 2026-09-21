@@ -54,7 +54,7 @@ Common edits:
 
 The charts are built in [Flourish](https://flourish.studio) and
 [Datawrapper](https://www.datawrapper.de) and embedded live, so a reader can
-hover a mark and read the value off it. They are figures from research, and
+tap or hover a mark and read the value off it. They are figures from research, and
 they should stay inspectable.
 
 Add one to a study's `groups` in `VIZ_PROJECTS` in `content.js`. A Flourish

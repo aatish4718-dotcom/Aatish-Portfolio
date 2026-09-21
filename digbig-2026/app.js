@@ -37,7 +37,10 @@
      here instead — without it the layout falls back to a square and squashes
      the artwork into it. */
   var EXTRA_DIMS = {
-    'images/work/env-shamli-2041.jpg': { w: 1400, h: 990 }
+    'images/work/env-shamli-2041.jpg': { w: 1400, h: 990 },
+    /* A still of the walkability heatmap, for the Selected card. The chart
+       itself stays live on the study page, which is where the card leads. */
+    'images/work/walkability-heatmap.jpg': { w: 1320, h: 936 }
   };
 
   var DIMS = null;
@@ -1404,7 +1407,7 @@
 
   /* The charts are built in Flourish and embedded live rather than exported as
      pictures, because the point of a chart with 117 respondents in it is that
-     you can hover a mark and read the value off it. A screenshot cannot do
+     you can tap or hover a mark and read the value off it. A screenshot cannot do
      that, and these are figures from research — they should stay inspectable.
 
      Flourish ships an embed script that scans the document for placeholder
@@ -1594,7 +1597,7 @@
       count: vizTotal() + ' charts',
       title: 'VISUALISATION',
       lede: 'The data behind the planning work, drawn so it can be read — census tabulations, primary surveys and street audits.',
-      note: vizTotal() + ' interactive charts across ' + VIZ_PROJECTS.length + ' studies. Every one is live: hover a mark and it gives you the number. They are figures from research, not illustrations of it.'
+      note: vizTotal() + ' interactive charts across ' + VIZ_PROJECTS.length + ' studies. Every one is live: tap or hover a mark and it gives you the number. They are figures from research, not illustrations of it.'
     });
     h += '<div class="idx">';
     for (var i = 0; i < VIZ_PROJECTS.length; i++) {

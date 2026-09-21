@@ -708,8 +708,9 @@ const VIZ_PROJECTS = [
     category: 'Studio / Street audit / Transport',
     client: 'School of Planning and Architecture, New Delhi',
     roleLine: 'Street audit, scoring and visualisation',
-    /* Semester III is stated on the sheets; the archive dates that semester
-       Aug–Dec 2019. No year is asserted on the charts themselves. */
+    /* Semester III is stated on the sheets, and the published heatmap dates
+       the audit 2019 in its own subtitle. */
+    year: '2019',
     meta: 'Semester III · Second year',
     lede: 'A street audit of two adjacent Delhi neighbourhoods, scored section by section and plotted against the things that were measured on the ground.',
     context: 'Taimoor Nagar and New Friends Colony sit next to each other and are not walked the same way. The studio scored the streets of both against a fixed instrument, which makes the comparison a matter of record rather than impression.',
@@ -850,13 +851,13 @@ const SELECTED = [
     caption: 'Conference brochure — cover'
   },
   {
-    n: '05', title: 'Rajasthan', href: '#/photography/the-blue-city',
-    meta: 'Photography / Field archive',
-    where: '26°14′ N 73°01′ E / Jodhpur',
-    desc: 'A city read from above and then walked. Indigo house-blocks packed to the wall line, the fort holding the high ground — the same skyline photographed until it stopped being a view and became a plan.',
-    kind: 'photo', cover: 'photos/heritage/02.jpg',
-    alt: 'Jodhpur seen from the fort: indigo-painted houses packed to the horizon.',
-    caption: 'Jodhpur, Rajasthan'
+    n: '05', title: 'Walkability — Taimoor Nagar', href: '#/visualisation/walkability-taimoor-nagar',
+    meta: 'Data visualisation / Street audit',
+    where: 'Delhi / 2019',
+    desc: 'Two adjacent Delhi neighbourhoods, scored street by street across six sections — then the score itself tested against footpath width and vehicle speed, because a score that does not move with them is measuring something other than walking.',
+    kind: 'artwork', cover: 'images/work/walkability-heatmap.jpg',
+    alt: 'Heatmap of walkability scores out of ten for each street in Taimoor Nagar and New Friends Colony across six sections, from adequacy of infrastructure to behaviour of people; crossings and comfort score low on every street.',
+    caption: 'Walkability score by street and section — live on the study page'
   }
 
 ];
