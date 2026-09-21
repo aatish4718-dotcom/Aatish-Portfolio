@@ -260,6 +260,7 @@ const PLAN_PROJECTS = [
   },
   {
     slug: 'universal-access', cat: 'thesis',
+    vizSlug: 'accessibility-delhi',
     title: 'Planning for Persons with Disabilities',
     year: '2022', place: 'Delhi',
     category: 'Thesis / Accessibility / Film',

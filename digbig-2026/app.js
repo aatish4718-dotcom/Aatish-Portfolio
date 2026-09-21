@@ -749,10 +749,12 @@
            ' <span aria-hidden="true">↗</span></a></div>';
     }
 
-    /* Where the study's numbers were later drawn as live charts, say so. */
-    if (p.vizSlug && bySlug(VIZ_PROJECTS, p.vizSlug)) {
-      h += '<div class="grid sec-more"><a class="more c1-12" href="#/visualisation/' + p.vizSlug +
-           '">See the scores as live charts <span aria-hidden="true">→</span></a></div>';
+    /* Where the study's numbers were later drawn as live charts, say so — with
+       the real count, read off the study, so the link cannot drift from it. */
+    var vz = p.vizSlug && bySlug(VIZ_PROJECTS, p.vizSlug);
+    if (vz) {
+      h += '<div class="grid sec-more"><a class="more c1-12" href="#/visualisation/' + vz.slug +
+           '">See the data as ' + vizCharts(vz).length + ' live charts <span aria-hidden="true">→</span></a></div>';
     }
 
     if (p.designSlug) {
@@ -1668,8 +1670,10 @@
         '" target="_blank" rel="noopener">' + esc(p.doc.label) + ' <span aria-hidden="true">↗</span></a></div>';
     }
     if (p.planSlug) {
+      var pc = bySlug(PLAN_PROJECTS, p.planSlug);
       h += '<div class="grid sec-more"><a class="more c1-12" href="#/plan/' + p.planSlug +
-        '">Read the planning case <span aria-hidden="true">→</span></a></div>';
+        '">' + (pc && pc.cat === 'thesis' ? 'Read the thesis' : 'Read the planning case') +
+        ' <span aria-hidden="true">→</span></a></div>';
     }
 
     h += '<div class="grid" style="padding-top:var(--sec)">' + pager(nb.prev, nb.next, 'visualisation') + '</div>';
