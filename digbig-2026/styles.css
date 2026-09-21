@@ -640,6 +640,15 @@ h1, h2, h3 { font-weight: 600; letter-spacing: -.03em; line-height: .92; }
   border-top: 1px solid var(--ink);
   padding-top: clamp(8px, 1vw, 16px);
 }
+
+/* A case study's title, which is set in mixed case and is long enough to wrap.
+   The .86 above is display leading, chosen for the section headings — one
+   word, all caps, nothing below the baseline — where tight stacking is the
+   point. A wrapped mixed-case title is a different object: "Planning for
+   Persons with Disabilities" breaks after "with", and at .86 the g of
+   Planning lands on the D of Disabilities. This is the leading that clears a
+   descender, and it only applies where a descender can occur. */
+.mast h1.case-t { line-height: .98; letter-spacing: -.04em; }
 .mast-sub { border-top: 1px solid var(--rule); margin-top: clamp(18px, 2.4vw, 34px); padding-top: 16px; align-items: start; }
 
 /* ─────────────────────────────────────────────────────── INDEX LISTS ── */

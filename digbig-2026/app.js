@@ -608,7 +608,7 @@
         '<p class="lbl c1-6"><span class="lbl--red">' + pad(nb.i + 1) + '</span> / ' + pad(PLAN_PROJECTS.length) + ' — Plan</p>' +
         '<p class="lbl c10-12 ta-r hide-sm">' + esc([p.year, p.place].filter(Boolean).join(' · ')) + '</p>' +
       '</div>' +
-      '<div class="grid"><h1>' + esc(p.title) + '</h1></div>' +
+      '<div class="grid"><h1 class="case-t">' + esc(p.title) + '</h1></div>' +
       '<div class="grid mast-sub">' +
         '<p class="lede c1-6">' + esc(p.lede) + '</p>' +
         '<div class="c8-12"><dl class="facts" style="margin-top:0">' + factRows(p.facts) + '</dl></div>' +
@@ -833,7 +833,7 @@
         '<p class="lbl c1-6"><span class="lbl--red">' + pad(nb.i + 1) + '</span> / ' + pad(DESIGN_PROJECTS.length) + ' — Design</p>' +
         '<p class="lbl c10-12 ta-r hide-sm">' + esc([p.year, p.place].filter(Boolean).join(' · ')) + '</p>' +
       '</div>' +
-      '<div class="grid"><h1>' + esc(p.title) + '</h1></div>' +
+      '<div class="grid"><h1 class="case-t">' + esc(p.title) + '</h1></div>' +
       '<div class="grid mast-sub">' +
         '<p class="lede c1-6">' + esc(p.lede) + '</p>' +
         '<div class="c8-12"><dl class="facts" style="margin-top:0">' + factRows(facts) + '</dl></div>' +
@@ -1561,7 +1561,7 @@
         '<p class="lbl c1-6"><span class="lbl--red">' + pad(nb.i + 1) + '</span> / ' + pad(VIZ_PROJECTS.length) + ' — Visualisation</p>' +
         '<p class="lbl c10-12 ta-r hide-sm">' + esc([p.year || p.meta, p.place].filter(Boolean).join(' · ')) + '</p>' +
       '</div>' +
-      '<div class="grid"><h1>' + esc(p.title) + '</h1></div>' +
+      '<div class="grid"><h1 class="case-t">' + esc(p.title) + '</h1></div>' +
       '<div class="grid mast-sub">' +
         '<p class="lede c1-6">' + esc(p.lede) + '</p>' +
         '<div class="c8-12"><dl class="facts" style="margin-top:0">' + factRows(facts) + '</dl></div>' +
