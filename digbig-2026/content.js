@@ -760,19 +760,42 @@ const VIZ_PROJECTS = [
   },
   {
     slug: 'rajasthan-discoms',
-    title: 'Rajasthan Discoms — Capital Investment',
+    title: 'Rajasthan Discoms — Reading a Tariff Order',
     place: 'Rajasthan',
-    category: 'Self-directed / Public finance / Energy',
-    /* The chart is dated by its data, FY 2022-23, not by when it was drawn. */
-    meta: 'Data FY 2022-23',
-    roleLine: 'Data preparation and visualisation',
-    lede: 'How Rajasthan’s three electricity distribution companies proposed to pay for Rs 11,434 crore of investment in one year — and how much of it is borrowed.',
-    context: 'A distribution company’s investment plan is filed with the state regulator and published in its tariff order, where it sits as two tables that almost nobody reads. Drawn as flows, from funding source to company to scheme, the pattern is immediate: loans carry most of the programme, and Jodhpur’s discom carries the most borrowing of the three.',
-    role: 'Read the investment plan out of the Rajasthan Electricity Regulatory Commission’s ARR and Tariff Order for FY 2022-23 (Tables 36 and 37), prepared the data and built the chart in Flourish.',
-    process: 'These are the discoms’ own proposals, not what was approved or spent, and the chart says so in its note. Of Rs 11,434 crore proposed, Rs 7,422 crore is loans; Jodhpur plans Rs 4,163 crore of loans against Rs 5,251 crore of investment, 79 per cent. Rural electrification and RDSS take the largest shares; the smaller schemes are listed in the note rather than drawn as slivers.',
+    category: 'Self-directed / Power sector / Public finance',
+    /* Dated by the document, the regulator's order for FY 2022-23; the losses
+       chart reaches back to FY 2015-16 from the same order. */
+    meta: 'Tariff order FY 2022-23',
+    roleLine: 'Data preparation, analysis and visualisation',
+    lede: 'One public document, read four ways — who Rajasthan’s three electricity distribution companies sell to, what their power costs to buy, how much is lost on the way, and how the next year’s investment is paid for.',
+    context: 'Every year the Rajasthan Electricity Regulatory Commission publishes a tariff order for the state’s three distribution companies — Jaipur, Ajmer and Jodhpur. It settles what they may charge, and on the way it records who buys their power, where they buy it from, how much never reaches a bill and what they plan to invest. It is a long regulatory document whose tables are rarely read; these charts read five of them.',
+    role: 'Read Tables 20, 22, 32–33 and 36–37 of the ARR and Tariff Order for FY 2022-23 (1 September 2022), prepared the data, calculated the average cost of each power source from its total cost and volume, and built the four charts in Flourish.',
+    process: 'Almost everything here is approved projection rather than actual outcome, and each chart says so in its note; the losses chart is the exception, setting six years of targets against what happened. Read in order, the pattern holds together: farms take three of every five units Jodhpur sells, solar is cheaper per unit than every thermal source the state buys, only once in six years did any discom meet its loss target, and Jodhpur plans to borrow four of every five rupees it invests.',
     groups: [
       {
-        name: 'Funding source to company to scheme',
+        name: 'Who the power is sold to',
+        note: 'Agriculture is 59 per cent of Jodhpur’s approved sales, against 35 for Jaipur and 34 for Ajmer.',
+        charts: [
+          { id: 30319999, title: 'Energy sales mix by consumer category' }
+        ]
+      },
+      {
+        name: 'What the power costs to buy',
+        note: 'Volume against average cost for each source, the bubble sized by total cost. The average cost is calculated, not published.',
+        charts: [
+          { id: 30320001, title: 'Power purchase — volume against average cost, by source' }
+        ]
+      },
+      {
+        name: 'What is lost on the way',
+        note: 'Distribution losses, energy lost between input and billing — not AT&C losses, which also count unpaid bills. Ajmer in FY 2019-20 is the only year any discom met its target.',
+        charts: [
+          { id: 30319909, title: 'Distribution losses, approved target against actual, FY 2015-16 to 2020-21' }
+        ]
+      },
+      {
+        name: 'How the investment is paid for',
+        note: 'The discoms’ own proposals, not what was approved or spent.',
         charts: [
           { id: 30320006, title: 'Proposed capital investment by funding source, discom and scheme' }
         ]
