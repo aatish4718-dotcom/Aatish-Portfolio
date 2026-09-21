@@ -446,7 +446,7 @@
           '<span class="n">' + pad(v + 1) + '</span>' +
           '<span class="t">' + esc(vp.title) + '</span>' +
           '<span class="m lbl">' + esc(vp.category) + '</span>' +
-          '<span class="y lbl">' + vizCharts(vp).length + ' charts</span>' +
+          '<span class="y lbl">' + chartCount(vizCharts(vp).length) + '</span>' +
           '<span class="go" aria-hidden="true">→</span>' +
         '</a>';
       }
@@ -754,7 +754,7 @@
     var vz = p.vizSlug && bySlug(VIZ_PROJECTS, p.vizSlug);
     if (vz) {
       h += '<div class="grid sec-more"><a class="more c1-12" href="/visualisation/' + vz.slug +
-           '">See the data as ' + vizCharts(vz).length + ' live charts <span aria-hidden="true">→</span></a></div>';
+           '">See the data as ' + chartCount(vizCharts(vz).length, 'live') + ' <span aria-hidden="true">→</span></a></div>';
     }
 
     if (p.designSlug) {
@@ -1566,6 +1566,8 @@
     }
     return out;
   }
+  /* "1 chart", "4 charts" — a study can hold a single figure. */
+  function chartCount(n, word) { return n + ' ' + (word ? word + ' ' : '') + (n === 1 ? 'chart' : 'charts'); }
   function vizTotal() {
     var n = 0;
     for (var i = 0; i < VIZ_PROJECTS.length; i++) n += vizCharts(VIZ_PROJECTS[i]).length;
@@ -1601,7 +1603,7 @@
   function viewVizIndex() {
     var h = mast({
       kicker: '03 — Visualisation',
-      count: vizTotal() + ' charts',
+      count: chartCount(vizTotal()),
       title: 'VISUALISATION',
       lede: 'The data behind the planning work, drawn so it can be read — census tabulations, primary surveys and street audits.',
       note: vizTotal() + ' interactive charts across ' + VIZ_PROJECTS.length + ' studies. Every one is live: tap or hover a mark and it gives you the number. They are figures from research, not illustrations of it.'
@@ -1632,7 +1634,7 @@
       ['Year', p.year],
       ['Place', p.place],
       ['Role', p.roleLine],
-      ['Figures', all.length + ' charts']
+      ['Figures', chartCount(all.length)]
     ].filter(function (r) { return r[1]; });
 
     var h = crumb('/visualisation', 'Visualisation index');

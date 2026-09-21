@@ -759,6 +759,27 @@ const VIZ_PROJECTS = [
     ]
   },
   {
+    slug: 'rajasthan-discoms',
+    title: 'Rajasthan Discoms — Capital Investment',
+    place: 'Rajasthan',
+    category: 'Self-directed / Public finance / Energy',
+    /* The chart is dated by its data, FY 2022-23, not by when it was drawn. */
+    meta: 'Data FY 2022-23',
+    roleLine: 'Data preparation and visualisation',
+    lede: 'How Rajasthan’s three electricity distribution companies proposed to pay for Rs 11,434 crore of investment in one year — and how much of it is borrowed.',
+    context: 'A distribution company’s investment plan is filed with the state regulator and published in its tariff order, where it sits as two tables that almost nobody reads. Drawn as flows, from funding source to company to scheme, the pattern is immediate: loans carry most of the programme, and Jodhpur’s discom carries the most borrowing of the three.',
+    role: 'Read the investment plan out of the Rajasthan Electricity Regulatory Commission’s ARR and Tariff Order for FY 2022-23 (Tables 36 and 37), prepared the data and built the chart in Flourish.',
+    process: 'These are the discoms’ own proposals, not what was approved or spent, and the chart says so in its note. Of Rs 11,434 crore proposed, Rs 7,422 crore is loans; Jodhpur plans Rs 4,163 crore of loans against Rs 5,251 crore of investment, 79 per cent. Rural electrification and RDSS take the largest shares; the smaller schemes are listed in the note rather than drawn as slivers.',
+    groups: [
+      {
+        name: 'Funding source to company to scheme',
+        charts: [
+          { id: 30320006, title: 'Proposed capital investment by funding source, discom and scheme' }
+        ]
+      }
+    ]
+  },
+  {
     slug: 'india-reference-maps',
     title: 'India — Reference Maps',
     place: 'India',
