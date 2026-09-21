@@ -320,6 +320,28 @@ const PLAN_PROJECTS = [
     ]
   },
   {
+    slug: 'walkability-audit', cat: 'sem3',
+    title: 'Walkability Audit — Taimoor Nagar & New Friends Colony',
+    year: '2019', place: 'Delhi',
+    category: 'Transport / Street audit / Walkability index',
+    org: 'School of Planning and Architecture, New Delhi',
+    roleLine: 'Planning studio — third semester, with Trisha and Samreen',
+    lede: 'A walkability index built from scratch for two neighbouring Delhi colonies, then used to score every street in them.',
+    cover: 'images/work/walkability-jury.jpg',
+    doc: { href: 'docs/WALKABILITY_FINAL_INTERNAL_JURY_make_sheet_size.pdf', label: 'Read the internal jury sheets, 10 pages (PDF)' },
+    vizSlug: 'walkability-taimoor-nagar',
+    context: 'Part of the semester’s transport improvement plan for Taimoor Nagar and New Friends Colony. The point was not to borrow a walkability score but to build one that fitted the place, and then to test it against the other transport surveys run the same semester.',
+    role: 'Group studio with Trisha and Samreen: the literature study, the reconnaissance and delineation of the study area, the street-by-street survey, the scoring and the analysis.',
+    process: 'The factors were grouped into six sections — adequacy of infrastructure, quality of infrastructure, crossings and intersections, driver behaviour and safety, comfort and aesthetics, and behaviour of people and vendors. Each street was scored factor by factor, the sections summed to a total out of sixty and converted to ten, and the final table graded from red to green so the pattern reads at a glance: comfort and crossings fail almost everywhere, and the villages score lowest of all.',
+    facts: [
+      ['Studio', 'Transport improvement plan'],
+      ['Semester', 'III, August–December 2019'],
+      ['Area', 'Taimoor Nagar & New Friends Colony'],
+      ['Group', 'Trisha, Samreen, Aatish'],
+      ['Output', '10 jury sheets']
+    ]
+  },
+  {
     slug: 'environment-shamli', cat: 'sem6',
     title: 'Environment — Master Plan Shamli 2041',
     year: '2021', place: 'Shamli, Uttar Pradesh',
@@ -703,6 +725,7 @@ const VIZ_PROJECTS = [
   },
   {
     slug: 'walkability-taimoor-nagar',
+    planSlug: 'walkability-audit',
     title: 'Walkability — Taimoor Nagar and New Friends Colony',
     place: 'Delhi',
     category: 'Studio / Street audit / Transport',
@@ -851,13 +874,13 @@ const SELECTED = [
     caption: 'Conference brochure — cover'
   },
   {
-    n: '05', title: 'Walkability — Taimoor Nagar', href: '#/visualisation/walkability-taimoor-nagar',
-    meta: 'Data visualisation / Street audit',
-    where: 'Delhi / 2019',
-    desc: 'Two adjacent Delhi neighbourhoods, scored street by street across six sections — then the score itself tested against footpath width and vehicle speed, because a score that does not move with them is measuring something other than walking.',
-    kind: 'artwork', cover: 'images/work/walkability-heatmap.jpg',
-    alt: 'Heatmap of walkability scores out of ten for each street in Taimoor Nagar and New Friends Colony across six sections, from adequacy of infrastructure to behaviour of people; crossings and comfort score low on every street.',
-    caption: 'Walkability score by street and section — live on the study page'
+    n: '05', title: 'Walkability Audit', href: '#/plan/walkability-audit',
+    meta: 'Transport / Street audit / Walkability index',
+    where: 'Taimoor Nagar · New Friends Colony / 2019',
+    desc: 'A walkability index built for two Delhi colonies and used to score every street in them — six sections, a score out of ten, and a table graded red to green so the failures read at a glance.',
+    kind: 'artwork', cover: 'images/work/walkability-jury.jpg',
+    alt: 'Internal jury sheet titled Final scoring of study area — a base map of Taimoor Nagar and New Friends Colony beside a score table for every street, shaded from red to green, with bar charts of the average score in each section.',
+    caption: 'Internal jury — final scoring of study area'
   }
 
 ];

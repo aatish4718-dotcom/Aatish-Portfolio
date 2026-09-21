@@ -38,9 +38,7 @@
      the artwork into it. */
   var EXTRA_DIMS = {
     'images/work/env-shamli-2041.jpg': { w: 1400, h: 990 },
-    /* A still of the walkability heatmap, for the Selected card. The chart
-       itself stays live on the study page, which is where the card leads. */
-    'images/work/walkability-heatmap.jpg': { w: 1320, h: 936 }
+    'images/work/walkability-jury.jpg': { w: 1400, h: 989 }
   };
 
   var DIMS = null;
@@ -749,6 +747,12 @@
       h += '<div class="grid sec-more"><a class="more c1-12" href="' + esc(p.doc.href) +
            '" target="_blank" rel="noopener">' + esc(p.doc.label) +
            ' <span aria-hidden="true">↗</span></a></div>';
+    }
+
+    /* Where the study's numbers were later drawn as live charts, say so. */
+    if (p.vizSlug && bySlug(VIZ_PROJECTS, p.vizSlug)) {
+      h += '<div class="grid sec-more"><a class="more c1-12" href="#/visualisation/' + p.vizSlug +
+           '">See the scores as live charts <span aria-hidden="true">→</span></a></div>';
     }
 
     if (p.designSlug) {
