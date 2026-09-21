@@ -320,6 +320,27 @@ const PLAN_PROJECTS = [
     ]
   },
   {
+    slug: 'environment-shamli', cat: 'sem6',
+    title: 'Environment — Master Plan Shamli 2041',
+    year: '2021', place: 'Shamli, Uttar Pradesh',
+    category: 'Master plan / Environment / Regional',
+    org: 'School of Planning and Architecture, New Delhi',
+    roleLine: 'Planning studio — sixth semester, in a group of three',
+    lede: 'The environment aspect of a master plan — what the air, water, soil and green cover of a district town are actually doing, and what to propose about it.',
+    cover: 'images/work/env-shamli-2041.jpg',
+    doc: { href: 'docs/Environment_Final_Proposals_pptx_edited.pdf', label: 'Read the proposals, 16 pages (PDF)' },
+    context: 'A master plan has to say something about the environment, and the temptation is to say it in general. This aspect was worked through six headings instead — climate, soil, land surface and vegetation, water, air quality, and greens and open spaces — each taken from observation to the issue it raises.',
+    role: 'Group studio with Harshit Panchal and V Purna Venkata Manikanta. The proposals for air quality management, for green buffers and for green areas in the Shamli notified planning area are mine, and carry my name on the sheets.',
+    process: 'The findings are uncomfortable and specific, which is the point: seven per cent of groundwater samples unfit for drinking, no effluent treatment plant anywhere in the area, no ambient air quality monitoring station in a town whose index reads severe, and two per cent of the planning area as parks and open space. The proposals answer those directly — a green belt, a twenty to twenty-five metre buffer along the new roads, and a common effluent treatment plant.',
+    facts: [
+      ['Studio', 'Master plan — environment aspect'],
+      ['Semester', 'VI, January–May 2021'],
+      ['Town', 'Shamli, Uttar Pradesh'],
+      ['Horizon', '2041'],
+      ['Output', '16-sheet proposal deck']
+    ]
+  },
+  {
     slug: 'studio-water', cat: 'sem7',
     title: 'Water & Physical Infrastructure',
     year: '2021', place: 'Muzaffarnagar / Kandhla',
@@ -793,7 +814,25 @@ const FILMS = [
    locator that runs under the number. Everything else works as before. */
 const SELECTED = [
   {
-    n: '01', title: 'Chittorgarh IEC', href: '#/design/swachh-survekshan',
+    n: '01', title: 'Photography Portfolio', href: '#/design/photography-book',
+    meta: 'Book / Photography / Layout',
+    where: 'Self-initiated',
+    desc: 'A thirty-eight page book built from the same archive this site draws on — shot, selected, sequenced and laid out, because a book forces the decisions a folder lets you avoid.',
+    kind: 'artwork', cover: 'design/photography-portfolio-book/01.jpg',
+    alt: 'Cover of the Photography Portfolio book — a bass guitarist photographed from below against blue stage smoke, with the author’s name above and the title set in wide white capitals below.',
+    caption: 'Photography Portfolio — cover'
+  },
+  {
+    n: '02', title: 'Environment — Shamli 2041', href: '#/plan/environment-shamli',
+    meta: 'Master plan / Environment / Regional',
+    where: 'Shamli, Uttar Pradesh / 2021',
+    desc: 'The environment aspect of a master plan, worked through six headings from observation to issue — then answered with a green belt, a buffer along the new roads and a common effluent treatment plant.',
+    kind: 'artwork', cover: 'images/work/env-shamli-2041.jpg',
+    alt: 'Cover of the Shamli 2041 master plan environment proposal — an ink and foliage collage in deep greens beside the title Master Plan Shamli 2041 and the word ENVIRONMENT.',
+    caption: 'Master Plan Shamli 2041 — environment proposal'
+  },
+  {
+    n: '03', title: 'Chittorgarh IEC', href: '#/design/swachh-survekshan',
     meta: 'Visual communication / SBM (Urban) 2.0',
     where: 'Chittorgarh · Jaitaran / 2025–',
     desc: 'A running sanitation campaign for two Urban Local Bodies — single-use plastic explainers, cloth-bag drives, anti-littering instruction and school outreach, argued ward by ward in the months before the survey.',
@@ -802,31 +841,13 @@ const SELECTED = [
     caption: 'Nagar Parishad Chittorgarh — awareness set'
   },
   {
-    n: '02', title: 'NIUA @ WUF11', href: '#/plan/wuf11',
+    n: '04', title: 'NIUA @ WUF11', href: '#/plan/wuf11',
     meta: 'Urban research / Conference publication',
     where: 'Katowice, Poland / 2022',
     desc: 'A nineteen-page conference brochure on the National Institute of Urban Affairs at the eleventh World Urban Forum, designed and written inside a team of three.',
     kind: 'artwork', cover: 'design/wuf-brochure/01.jpg',
     alt: 'Cover of the NIUA at WUF11 conference brochure — the institute’s wordmark in white on a dark teal field above an illustrated city.',
     caption: 'Conference brochure — cover'
-  },
-  {
-    n: '03', title: 'Training & Admissions', href: '#/design/training-admissions',
-    meta: 'Campaign / Print / Outdoor',
-    where: 'Jodhpur / 2025–',
-    desc: 'Recruitment and convocation communication for AIILSG’s fireman and sanitary inspector courses, rebuilt for each format it had to survive — hoarding, pamphlet, notice board, phone screen.',
-    kind: 'artwork', cover: 'design/fireman-training-brochure/01.jpg',
-    alt: 'Two-panel career brochure for the AIILSG fireman training programme, in red and navy with photographs of the training ground.',
-    caption: 'Career brochure — outer panels'
-  },
-  {
-    n: '04', title: 'AIILSG Rajasthan', href: '#/design/aiilsg-identity',
-    meta: 'Institutional identity / Publication',
-    where: 'Jodhpur / 2025–',
-    desc: 'Centenary and identity work for an institution that has worked with Indian local government since 1926 — a brochure that opens on a place rather than a logo.',
-    kind: 'artwork', cover: 'design/final-brochure-print/01.jpg',
-    alt: 'Cover of the AIILSG Rajasthan centenary brochure, marking one hundred years of the institute.',
-    caption: 'Centenary brochure — cover'
   },
   {
     n: '05', title: 'Rajasthan', href: '#/photography/the-blue-city',
@@ -837,6 +858,7 @@ const SELECTED = [
     alt: 'Jodhpur seen from the fort: indigo-painted houses packed to the horizon.',
     caption: 'Jodhpur, Rajasthan'
   }
+
 ];
 
 /* The stories that get a preview on the home page. */

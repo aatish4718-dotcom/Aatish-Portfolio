@@ -485,8 +485,16 @@ h1, h2, h3 { font-weight: 600; letter-spacing: -.03em; line-height: .92; }
 .work:hover .work-title { transform: translateX(10px); }
 
 /* Visual and text, alternating sides. */
-.work-fig { grid-column: 1 / 9; display: block; overflow: hidden; }
-.work-say { grid-column: 9 / -1; display: flex; flex-direction: column; gap: clamp(14px, 1.8vw, 24px); align-self: end; }
+/* Both sit on the second row, explicitly.
+   Left them to auto-placement and the even-numbered entries broke: the figure
+   is placed first at columns 8-12, the text then asks for columns 1-7, and
+   sparse placement never goes backwards — so the text was pushed onto a row of
+   its own, 719px below the top of the artwork, with the whole left half of the
+   card left blank. Naming the row costs nothing on the odd entries, which
+   already resolved correctly, and makes the rule below true for every card
+   rather than every other one. */
+.work-fig { grid-column: 1 / 9; grid-row: 2; display: block; overflow: hidden; }
+.work-say { grid-column: 9 / -1; grid-row: 2; display: flex; flex-direction: column; gap: clamp(14px, 1.8vw, 24px); align-self: end; }
 
 .work:nth-child(even) .work-fig { grid-column: 5 / -1; }
 .work:nth-child(even) .work-say { grid-column: 1 / 5; }
@@ -1636,6 +1644,9 @@ details[open] > .arc-sum .arc-sum-i::after { transform: rotate(0deg); }
   .work:nth-child(even) .work-fig, .work:nth-child(even) .work-say,
   .work-tall .work-fig, .work-tall .work-say,
   .work-tall:nth-child(even) .work-fig, .work-tall:nth-child(even) .work-say { grid-column: 1 / -1; }
+  /* One column here, so the named row above would lay the text over the
+     artwork instead of under it. */
+  .work-fig, .work-say { grid-row: auto; }
   .work-idx { flex-direction: row; align-items: baseline; gap: 1em; }
   .work-n { padding-bottom: 4px; min-width: 0; }
   /* Tall artwork is inset so a pamphlet does not fill the screen top to bottom
@@ -1851,3 +1862,13 @@ details.cat-empty[open] > .cat-sum .cat-t { color: var(--red); }
 @media (prefers-reduced-motion: reduce) {
   .viz-frame { transition: none; }
 }
+
+/* ─────────────────────────────────────── VISUALISATION ON THE HOME PAGE ── */
+/* One live chart and the three studies under it. The chart keeps the frame
+   rules from the study pages — white ground in both themes, hairline, height
+   set from the service's own resize message — and only needs its margins
+   setting here. */
+
+.viz-home { margin-top: clamp(20px, 2.6vw, 34px); }
+.viz-home-fig { margin-bottom: clamp(26px, 3.4vw, 44px); }
+.viz-home-idx { margin-top: 0; }

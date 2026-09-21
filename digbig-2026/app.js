@@ -30,8 +30,19 @@
 
   /* Intrinsic size, looked up from the two data files rather than repeated by
      hand in content.js — they already record it for every asset. */
+  /* A few covers are not in either asset index, because they are neither a
+     photograph nor a design piece: a planning document's first page, rendered
+     from the PDF at a size the page can actually use. The two indexes are
+     generated files and this is not their business, so the size is recorded
+     here instead — without it the layout falls back to a square and squashes
+     the artwork into it. */
+  var EXTRA_DIMS = {
+    'images/work/env-shamli-2041.jpg': { w: 1400, h: 990 }
+  };
+
   var DIMS = null;
   function dimsFor(path) {
+    if (EXTRA_DIMS[path]) return EXTRA_DIMS[path];
     if (!DIMS) {
       DIMS = {};
       for (var c = 0; c < PORTFOLIO_DATA.length; c++) {
@@ -217,6 +228,11 @@
     for (var g = 0; g < DESIGN_DATA.length; g++) n += DESIGN_DATA[g].items.length;
     return n;
   }
+  function archiveTotal() {
+    var n = 0;
+    for (var g = 0; g < ARCHIVE.length; g++) n += ARCHIVE[g].items.length;
+    return n;
+  }
   function setText(sel, txt) {
     var el = $(sel);
     if (el) el.textContent = txt;
@@ -345,11 +361,20 @@
     }
     $('#selList').innerHTML = h;
 
-    /* The three practices, as an index rather than three cards. */
+    /* Every part of the site, as an index rather than a row of cards.
+
+       This was three practices — plan, design, visual — which left a reader
+       on the home page with no route to the charts or to the archive at all,
+       and no sense of how much of each there is. It is the cheapest honest
+       answer to "what is actually in here": one line each, the real count
+       computed from the content, and a way in. */
     var rows = [
       ['PLAN', 'Urban planning &amp; research', PLAN_PROJECTS.length + ' projects — NIUA, AIILSG, SPA Delhi', '#/plan'],
+      ['DATA', 'Data visualisation', vizTotal() + ' live charts across ' + VIZ_PROJECTS.length + ' studies', '#/visualisation'],
       ['DESIGN', 'Visual communication', DESIGN_PROJECTS.length + ' case studies — ' + designTotal() + ' pieces', '#/design'],
-      ['VISUAL', 'Photography &amp; film', photoTotal() + ' photographs, ' + FILMS.length + ' films, ' + REEL_DATA.length + ' short cuts', '#/photography']
+      ['PHOTO', 'Photography', photoTotal() + ' photographs in ' + PHOTO_STORIES.length + ' stories', '#/photography'],
+      ['MOTION', 'Film &amp; motion', FILMS.length + ' films, ' + REEL_DATA.length + ' short cuts', '#/motion'],
+      ['ARCHIVE', 'The document archive', archiveTotal() + ' documents, in full', '#/archive']
     ];
     var r = '';
     for (var j = 0; j < rows.length; j++) {
@@ -389,6 +414,45 @@
       '</a>';
     }
     $('#arcPeek').innerHTML = peek;
+
+    /* Visualisation — one chart, live, and the three studies beside it.
+
+       The chart is the real thing rather than a picture of one, which is the
+       whole argument of that section and cannot be made with a screenshot.
+       It costs nothing until it is reached: the frame carries no src until it
+       is within 400px of the viewport, exactly as the twenty-four on the study
+       page do, and it is dropped again on the way out. */
+    setText('#statCharts', String(vizTotal()));
+    setText('#statStudies', String(VIZ_PROJECTS.length));
+
+    var lead = VIZ_PROJECTS[0] && VIZ_PROJECTS[0].groups[0] && VIZ_PROJECTS[0].groups[0].charts[0];
+    if (lead) {
+      var vh = '<div class="viz-home rv">' +
+        '<figure class="viz viz-home-fig">' +
+          '<figcaption class="viz-cap">' +
+            '<span class="viz-t">' + esc(lead.title) + '</span>' +
+            '<span class="lbl viz-n"><span class="lbl--red">Fig. 01</span></span>' +
+          '</figcaption>' +
+          '<div class="viz-frame" data-viz="' + esc(lead.id) + '" data-title="' + esc(lead.title) + '">' +
+            '<p class="viz-off lbl">This chart could not be loaded here. ' +
+              '<a href="https://public.flourish.studio/visualisation/' + esc(lead.id) + '/" ' +
+              'target="_blank" rel="noopener">Open it on Flourish <span aria-hidden="true">↗</span></a>' +
+            '</p>' +
+          '</div>' +
+        '</figure>' +
+        '<div class="idx viz-home-idx">';
+      for (var v = 0; v < VIZ_PROJECTS.length; v++) {
+        var vp = VIZ_PROJECTS[v];
+        vh += '<a class="idx-row rv" href="#/visualisation/' + vp.slug + '">' +
+          '<span class="n">' + pad(v + 1) + '</span>' +
+          '<span class="t">' + esc(vp.title) + '</span>' +
+          '<span class="m lbl">' + esc(vp.category) + '</span>' +
+          '<span class="y lbl">' + vizCharts(vp).length + ' charts</span>' +
+          '<span class="go" aria-hidden="true">→</span>' +
+        '</a>';
+      }
+      $('#vizFeature').innerHTML = vh + '</div></div>';
+    }
 
     /* Motion — one film, named, with its own card. Nothing is requested from
        YouTube until someone presses play. */
@@ -1470,9 +1534,17 @@
         if (vio) { vio.disconnect(); vio = null; }
         for (var i = 0; i < live.length; i++) {
           var f = $('iframe', live[i]);
-          if (!f) continue;
-          try { f.src = 'about:blank'; } catch (e) {}
-          if (f.parentNode) f.parentNode.removeChild(f);
+          if (f) {
+            try { f.src = 'about:blank'; } catch (e) {}
+            if (f.parentNode) f.parentNode.removeChild(f);
+          }
+          /* The routed views are thrown away wholesale, so their frames never
+             need this. The home page is not: it is hidden and shown again, and
+             the same elements come back. Clearing the state and the measured
+             height is what lets a chart on the home page mount a second time
+             instead of returning as an empty box that says it is fine. */
+          live[i].removeAttribute('data-state');
+          live[i].style.height = '';
         }
         live = [];
       }
