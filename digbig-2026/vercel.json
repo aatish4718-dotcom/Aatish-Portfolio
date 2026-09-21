@@ -18,7 +18,7 @@
       ]
     },
     {
-      "source": "/design/(.*)",
+      "source": "/design/(.*).(jpg|jpeg|png|webp)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -54,7 +54,7 @@
       ]
     },
     {
-      "source": "/index.html",
+      "source": "/(.*).html",
       "headers": [
         {
           "key": "Cache-Control",
@@ -101,5 +101,6 @@
         }
       ]
     }
-  ]
+  ],
+  "trailingSlash": false
 }

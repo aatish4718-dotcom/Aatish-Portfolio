@@ -1,0 +1,11 @@
+{
+  "name": "digbig-studio",
+  "private": true,
+  "description": "Build tooling for digbigstudio.com. Nothing here is published: the site is the digbig-2026 folder.",
+  "scripts": {
+    "prerender": "node build/prerender.js"
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0"
+  }
+}

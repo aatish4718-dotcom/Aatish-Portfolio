@@ -265,11 +265,11 @@
   function pager(prev, next, base) {
     var h = '<div class="pager grid" style="grid-column:1/-1">';
     h += '<div>' + (prev
-      ? '<a href="#/' + base + '/' + prev.slug + '"><span class="lbl pg-lbl">Previous</span>' +
+      ? '<a href="/' + base + '/' + prev.slug + '"><span class="lbl pg-lbl">Previous</span>' +
         '<span class="pg-t">' + esc(prev.title) + '</span></a>'
       : '<span class="lbl">Start of index</span>') + '</div>';
     h += '<div class="ta-r">' + (next
-      ? '<a href="#/' + base + '/' + next.slug + '"><span class="lbl pg-lbl">Next project <span aria-hidden="true">→</span></span>' +
+      ? '<a href="/' + base + '/' + next.slug + '"><span class="lbl pg-lbl">Next project <span aria-hidden="true">→</span></span>' +
         '<span class="pg-t">' + esc(next.title) + '</span></a>'
       : '<span class="lbl">End of index</span>') + '</div>';
     return h + '</div>';
@@ -368,12 +368,12 @@
        answer to "what is actually in here": one line each, the real count
        computed from the content, and a way in. */
     var rows = [
-      ['PLAN', 'Urban planning &amp; research', PLAN_PROJECTS.length + ' projects — NIUA, AIILSG, SPA Delhi', '#/plan'],
-      ['DATA', 'Data visualisation', vizTotal() + ' live charts across ' + VIZ_PROJECTS.length + ' studies', '#/visualisation'],
-      ['DESIGN', 'Visual communication', DESIGN_PROJECTS.length + ' case studies — ' + designTotal() + ' pieces', '#/design'],
-      ['PHOTO', 'Photography', photoTotal() + ' photographs in ' + PHOTO_STORIES.length + ' stories', '#/photography'],
-      ['MOTION', 'Film &amp; motion', FILMS.length + ' films, ' + REEL_DATA.length + ' short cuts', '#/motion'],
-      ['ARCHIVE', 'The document archive', archiveTotal() + ' documents, in full', '#/archive']
+      ['PLAN', 'Urban planning &amp; research', PLAN_PROJECTS.length + ' projects — NIUA, AIILSG, SPA Delhi', '/plan'],
+      ['DATA', 'Data visualisation', vizTotal() + ' live charts across ' + VIZ_PROJECTS.length + ' studies', '/visualisation'],
+      ['DESIGN', 'Visual communication', DESIGN_PROJECTS.length + ' case studies — ' + designTotal() + ' pieces', '/design'],
+      ['PHOTO', 'Photography', photoTotal() + ' photographs in ' + PHOTO_STORIES.length + ' stories', '/photography'],
+      ['MOTION', 'Film &amp; motion', FILMS.length + ' films, ' + REEL_DATA.length + ' short cuts', '/motion'],
+      ['ARCHIVE', 'The document archive', archiveTotal() + ' documents, in full', '/archive']
     ];
     var r = '';
     for (var j = 0; j < rows.length; j++) {
@@ -395,7 +395,7 @@
       var fr = storyCover(st);
       if (!fr) continue;
       var big = (k % 2 === 0);
-      peek += '<a class="story ' + (big ? 'lg' : 'sm') + ' rv" href="#/photography/' + st.slug + '" ' +
+      peek += '<a class="story ' + (big ? 'lg' : 'sm') + ' rv" href="/photography/' + st.slug + '" ' +
               'data-cursor="OPEN">' +
         '<span class="story-hd">' +
           '<span class="story-n">' + pad(k + 1) + '</span>' +
@@ -442,7 +442,7 @@
         '<div class="idx viz-home-idx">';
       for (var v = 0; v < VIZ_PROJECTS.length; v++) {
         var vp = VIZ_PROJECTS[v];
-        vh += '<a class="idx-row rv" href="#/visualisation/' + vp.slug + '">' +
+        vh += '<a class="idx-row rv" href="/visualisation/' + vp.slug + '">' +
           '<span class="n">' + pad(v + 1) + '</span>' +
           '<span class="t">' + esc(vp.title) + '</span>' +
           '<span class="m lbl">' + esc(vp.category) + '</span>' +
@@ -491,7 +491,7 @@
      has them; the year appears only when it is actually known. */
   function planRow(p, n) {
     var tags = (p.tags && p.tags.length) ? p.tags.join(' · ') : p.category;
-    return '<a class="idx-row" href="#/plan/' + p.slug + '">' +
+    return '<a class="idx-row" href="/plan/' + p.slug + '">' +
       '<span class="n">' + pad(n) + '</span>' +
       '<span class="t">' + esc(p.title) + '</span>' +
       '<span class="m lbl">' + esc(tags) + '</span>' +
@@ -665,7 +665,7 @@
     if (!p) return notFound();
     var nb = neighbours(PLAN_PROJECTS, slug);
 
-    var h = crumb('#/plan', 'Planning index');
+    var h = crumb('/plan', 'Planning index');
     h += '<div class="mast">' +
       '<div class="grid mast-top">' +
         '<p class="lbl c1-6"><span class="lbl--red">' + pad(nb.i + 1) + '</span> / ' + pad(PLAN_PROJECTS.length) + ' — Plan</p>' +
@@ -753,7 +753,7 @@
        the real count, read off the study, so the link cannot drift from it. */
     var vz = p.vizSlug && bySlug(VIZ_PROJECTS, p.vizSlug);
     if (vz) {
-      h += '<div class="grid sec-more"><a class="more c1-12" href="#/visualisation/' + vz.slug +
+      h += '<div class="grid sec-more"><a class="more c1-12" href="/visualisation/' + vz.slug +
            '">See the data as ' + vizCharts(vz).length + ' live charts <span aria-hidden="true">→</span></a></div>';
     }
 
@@ -762,7 +762,7 @@
       if (d) {
         h += '<div class="chap"><div class="grid"><h2 class="c1-12">' + esc(p.slug === 'wuf11' ? 'Selected spreads' : 'Selected work') + '</h2></div>' +
           sheet(designPages(d).slice(0, 9)) + '</div>' +
-          '<div class="grid sec-more"><a class="more c1-12" href="#/design/' + d.slug + '">See the full case study <span aria-hidden="true">→</span></a></div>';
+          '<div class="grid sec-more"><a class="more c1-12" href="/design/' + d.slug + '">See the full case study <span aria-hidden="true">→</span></a></div>';
       }
     }
 
@@ -872,7 +872,7 @@
     h += '<div class="idx">';
     for (var i = 0; i < DESIGN_PROJECTS.length; i++) {
       var p = DESIGN_PROJECTS[i];
-      h += '<a class="idx-row rv" href="#/design/' + p.slug + '">' +
+      h += '<a class="idx-row rv" href="/design/' + p.slug + '">' +
         '<span class="n">' + pad(i + 1) + '</span>' +
         '<span class="t">' + esc(p.title) + '</span>' +
         '<span class="m lbl">' + esc(p.category) + '</span>' +
@@ -898,7 +898,7 @@
       ['Pieces', designItems(p).length + (pages.length !== designItems(p).length ? ' — ' + pages.length + ' pages' : '')]
     ].filter(function (r) { return r[1]; });
 
-    var h = crumb('#/design', 'Design index');
+    var h = crumb('/design', 'Design index');
     h += '<div class="mast">' +
       '<div class="grid mast-top">' +
         '<p class="lbl c1-6"><span class="lbl--red">' + pad(nb.i + 1) + '</span> / ' + pad(DESIGN_PROJECTS.length) + ' — Design</p>' +
@@ -931,12 +931,12 @@
     if (p.storySlug) {
       var st = storyBySlug(p.storySlug);
       if (st) {
-        h += '<div class="grid sec-more"><a class="more c1-12" href="#/photography/' + p.storySlug +
+        h += '<div class="grid sec-more"><a class="more c1-12" href="/photography/' + p.storySlug +
           '">See the campaign photographed on the ground <span aria-hidden="true">→</span></a></div>';
       }
     }
     if (p.planSlug) {
-      h += '<div class="grid sec-more"><a class="more c1-12" href="#/plan/' + p.planSlug +
+      h += '<div class="grid sec-more"><a class="more c1-12" href="/plan/' + p.planSlug +
         '">Read the planning case <span aria-hidden="true">→</span></a></div>';
     }
 
@@ -991,7 +991,7 @@
       var fr = storyFrames(st);
       var cover = storyCover(st);
       if (!cover) continue;
-      h += '<a class="story ' + st.weight + ' rv" href="#/photography/' + st.slug + '" data-cursor="OPEN">' +
+      h += '<a class="story ' + st.weight + ' rv" href="/photography/' + st.slug + '" data-cursor="OPEN">' +
         '<span class="story-hd">' +
           '<span class="story-n">' + pad(i + 1) + '</span>' +
           '<span class="story-t">' + esc(st.title) + '</span>' +
@@ -1014,7 +1014,7 @@
     var fr = storyFrames(st);
     var nb = neighbours(PHOTO_STORIES, slug);
 
-    var h = crumb('#/photography', 'Photography archive');
+    var h = crumb('/photography', 'Photography archive');
     h += '<div class="mast">' +
       '<div class="grid mast-top">' +
         '<p class="lbl c1-6"><span class="lbl--red">' + pad(nb.i + 1) + '</span> / ' + pad(PHOTO_STORIES.length) + ' — Story</p>' +
@@ -1382,7 +1382,7 @@
 
     h += '<div class="grid sec-more"><a class="more c1-6" href="' + SITE.cv +
       '" target="_blank" rel="noopener">Full CV <span aria-hidden="true">↗</span></a>' +
-      '<a class="more c7-12 ta-r" href="#/contact">Get in touch <span aria-hidden="true">→</span></a></div>';
+      '<a class="more c7-12 ta-r" href="/contact">Get in touch <span aria-hidden="true">→</span></a></div>';
     return h;
   }
 
@@ -1518,6 +1518,7 @@
       /* Called after each route is built. Frames already on the page from the
          previous route are gone with it — innerHTML replaced them. */
       scan: function () {
+        if (window.__PRERENDER) return;
         var frames = $$('.viz-frame');
         if (!frames.length) return;
         if (!('IntersectionObserver' in window)) { frames.forEach(mount); return; }
@@ -1608,7 +1609,7 @@
     h += '<div class="idx">';
     for (var i = 0; i < VIZ_PROJECTS.length; i++) {
       var p = VIZ_PROJECTS[i];
-      h += '<a class="idx-row rv" href="#/visualisation/' + p.slug + '">' +
+      h += '<a class="idx-row rv" href="/visualisation/' + p.slug + '">' +
         '<span class="n">' + pad(i + 1) + '</span>' +
         '<span class="t">' + esc(p.title) + '</span>' +
         '<span class="m lbl">' + esc(p.category) + '</span>' +
@@ -1634,7 +1635,7 @@
       ['Figures', all.length + ' charts']
     ].filter(function (r) { return r[1]; });
 
-    var h = crumb('#/visualisation', 'Visualisation index');
+    var h = crumb('/visualisation', 'Visualisation index');
     h += '<div class="mast">' +
       '<div class="grid mast-top">' +
         '<p class="lbl c1-6"><span class="lbl--red">' + pad(nb.i + 1) + '</span> / ' + pad(VIZ_PROJECTS.length) + ' — Visualisation</p>' +
@@ -1671,7 +1672,7 @@
     }
     if (p.planSlug) {
       var pc = bySlug(PLAN_PROJECTS, p.planSlug);
-      h += '<div class="grid sec-more"><a class="more c1-12" href="#/plan/' + p.planSlug +
+      h += '<div class="grid sec-more"><a class="more c1-12" href="/plan/' + p.planSlug +
         '">' + (pc && pc.cat === 'thesis' ? 'Read the thesis' : 'Read the planning case') +
         ' <span aria-hidden="true">→</span></a></div>';
     }
@@ -1686,7 +1687,7 @@
       title: 'NOT HERE',
       lede: 'That page is not part of this site.',
       note: 'Try the work index, the photography archive, or the planning index.'
-    }) + '<div class="grid sec-more"><a class="more c1-12" href="#/">Back to selected work <span aria-hidden="true">→</span></a></div>';
+    }) + '<div class="grid sec-more"><a class="more c1-12" href="/">Back to selected work <span aria-hidden="true">→</span></a></div>';
   }
 
   /* ═════════════════════════════════════════════════════════════ ROUTER ══ */
@@ -1717,23 +1718,46 @@
     /* sbm-urban was the generic SBM entry before the IEC work was split into
        one project per Urban Local Body. It is live on the deployed site, so the
        old address still has to land somewhere sensible. */
-    '#/plan/sbm-urban': '#/plan/chittorgarh-iec',
-    '#top': '#/', '#about': '#/about', '#work': '#/photography',
-    '#design': '#/design', '#motion': '#/motion', '#reels': '#/motion',
-    '#sound': '#/motion', '#contact': '#/contact'
+    '/plan/sbm-urban': '/plan/chittorgarh-iec',
+    '#top': '/', '#about': '/about', '#work': '/photography',
+    '#design': '/design', '#motion': '/motion', '#reels': '/motion',
+    '#sound': '/motion', '#contact': '/contact'
   };
+
+  /* Every address this site has ever handed out still has to land.
+
+     Until 2026 the routes lived in the hash — /#/plan/wuf11 — which is why no
+     search engine, link preview or AI reader ever saw anything but the home
+     page: the part after # never leaves the browser. Those links are out in
+     the world, so an old one is rewritten to its real address in place, before
+     anything renders, and Back still leaves the site rather than bouncing. */
   function redirectLegacy() {
-    var to = LEGACY[location.hash.toLowerCase()];
-    if (!to) return false;
-    location.replace(location.pathname + location.search + to);
-    return true;
+    var h = location.hash, to = null;
+    if (h && h.length > 1) {
+      if (h.indexOf('#/') === 0) to = h.slice(1);
+      else to = LEGACY[h.toLowerCase()] || null;
+    }
+    var p = to || location.pathname;
+    if (LEGACY[p]) to = LEGACY[p];
+    if (!to) return;
+    history.replaceState(null, '', to + location.search);
+  }
+
+  /* "/plan/wuf11", "/plan/wuf11/" and "/plan/wuf11.html" are the same page. */
+  function currentPath() {
+    var p = location.pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '').replace(/\/+$/, '');
+    return p || '/';
   }
 
   var lastPath = null;
 
   function route() {
-    if (redirectLegacy()) return;
-    var path = location.hash.replace(/^#/, '') || '/';
+    redirectLegacy();
+    var path = currentPath();
+    /* A pre-rendered inner page ships without the home page's markup, so a
+       reader does not wade through it before the page they asked for. Going
+       home from one of those is a real page load, not a swap. */
+    if (path === '/' && home.hasAttribute('data-stripped')) { location.assign('/'); return; }
     if (path === lastPath) return;
     lastPath = path;
 
@@ -2660,8 +2684,37 @@
     else cap.then ? cap.then(go) : setTimeout(go, 1200);
   }
 
-  window.addEventListener('hashchange', route);
+  /* Links inside the site change the page without reloading it. Anything that
+     is a file (a PDF, an image), leaves the site, opens a new tab or was
+     clicked with a modifier key is left to the browser. */
+  document.addEventListener('click', function (e) {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var a = e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
+    var href = a.getAttribute('href');
+    /* An in-page anchor, such as the skip link. With <base href="/"> it would
+       otherwise resolve against the home page and leave the one you are on. */
+    if (href.charAt(0) === '#') {
+      var t = document.getElementById(href.slice(1));
+      if (t) {
+        e.preventDefault();
+        if (!t.hasAttribute('tabindex')) t.setAttribute('tabindex', '-1');
+        t.focus();
+        t.scrollIntoView();
+      }
+      return;
+    }
+    if (href.charAt(0) !== '/' || href.charAt(1) === '/') return;
+    if (/\.[a-z0-9]{2,5}$/i.test(href.split(/[?#]/)[0])) return;
+    e.preventDefault();
+    if (href !== location.pathname) history.pushState(null, '', href);
+    route();
+  });
+  window.addEventListener('popstate', route);
+
   route();
   observeReveals();
-  releaseBoot();
+  /* The pre-renderer runs this file to write each page; it must not start the
+     boot screen's exit on the copy it is about to save. */
+  if (!window.__PRERENDER) releaseBoot();
 })();

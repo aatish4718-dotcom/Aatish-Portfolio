@@ -839,7 +839,7 @@ const FILMS = [
    locator that runs under the number. Everything else works as before. */
 const SELECTED = [
   {
-    n: '01', title: 'Photography Portfolio', href: '#/design/photography-book',
+    n: '01', title: 'Photography Portfolio', href: '/design/photography-book',
     meta: 'Book / Photography / Layout',
     where: 'Self-initiated',
     desc: 'A thirty-eight page book built from the same archive this site draws on — shot, selected, sequenced and laid out, because a book forces the decisions a folder lets you avoid.',
@@ -848,7 +848,7 @@ const SELECTED = [
     caption: 'Photography Portfolio — cover'
   },
   {
-    n: '02', title: 'Environment — Shamli 2041', href: '#/plan/environment-shamli',
+    n: '02', title: 'Environment — Shamli 2041', href: '/plan/environment-shamli',
     meta: 'Master plan / Environment / Regional',
     where: 'Shamli, Uttar Pradesh / 2021',
     desc: 'The environment aspect of a master plan, worked through six headings from observation to issue — then answered with a green belt, a buffer along the new roads and a common effluent treatment plant.',
@@ -857,7 +857,7 @@ const SELECTED = [
     caption: 'Master Plan Shamli 2041 — environment proposal'
   },
   {
-    n: '03', title: 'Chittorgarh IEC', href: '#/design/swachh-survekshan',
+    n: '03', title: 'Chittorgarh IEC', href: '/design/swachh-survekshan',
     meta: 'Visual communication / SBM (Urban) 2.0',
     where: 'Chittorgarh · Jaitaran / 2025–',
     desc: 'A running sanitation campaign for two Urban Local Bodies — single-use plastic explainers, cloth-bag drives, anti-littering instruction and school outreach, argued ward by ward in the months before the survey.',
@@ -866,7 +866,7 @@ const SELECTED = [
     caption: 'Nagar Parishad Chittorgarh — awareness set'
   },
   {
-    n: '04', title: 'NIUA @ WUF11', href: '#/plan/wuf11',
+    n: '04', title: 'NIUA @ WUF11', href: '/plan/wuf11',
     meta: 'Urban research / Conference publication',
     where: 'Katowice, Poland / 2022',
     desc: 'A nineteen-page conference brochure on the National Institute of Urban Affairs at the eleventh World Urban Forum, designed and written inside a team of three.',
@@ -875,7 +875,7 @@ const SELECTED = [
     caption: 'Conference brochure — cover'
   },
   {
-    n: '05', title: 'Walkability Audit', href: '#/plan/walkability-audit',
+    n: '05', title: 'Walkability Audit', href: '/plan/walkability-audit',
     meta: 'Transport / Street audit / Walkability index',
     where: 'Taimoor Nagar · New Friends Colony / 2019',
     desc: 'A walkability index built for two Delhi colonies and used to score every street in them — six sections, a score out of ten, and a table graded red to green so the failures read at a glance.',

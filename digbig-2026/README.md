@@ -2,8 +2,9 @@
 
 Portfolio of **Aatish Kumar** — urban planner and visual storyteller.
 
-Static site. No build step, no framework, no dependencies. Upload the folder to
-any host and it works. To preview locally, double-click `START.bat`.
+Static site, no framework. This folder is exactly what is published. It has
+one build step, which writes every page as real HTML — see **Pre-rendering**
+below. To preview locally, double-click `START.bat`.
 
 ---
 
@@ -11,7 +12,8 @@ any host and it works. To preview locally, double-click `START.bat`.
 
 | File | What it holds |
 |---|---|
-| `index.html` | Page shell, `<head>` metadata, header, the whole home page as real markup, footer, viewer |
+| `index.html`, `<route>/index.html` | **Generated.** Every page, pre-rendered from `../src/shell.html` — do not edit these |
+| `../src/shell.html` | Page shell, `<head>` metadata, header, the home page as real markup, footer, viewer |
 | `styles.css` | The visual system — tokens, 12-column grid, every component |
 | `app.js` | Hash router, all routed views, viewer, drawer, lazy media |
 | `content.js` | **Everything the site says.** Photo stories, planning cases, design cases, films, About |
@@ -136,23 +138,60 @@ about a dozen.
 ## Routes
 
 ```
-#/                      Home — selected work
-#/plan                  Planning index
-#/plan/<slug>           Planning case study
-#/visualisation         Visualisation index
-#/visualisation/<slug>  One study, its charts as numbered figures
-#/design                Design index
-#/design/<slug>         Design case study
-#/photography           The archive — 13 stories
-#/photography/<slug>    One story, paced as plates
-#/motion                Films and short cuts
-#/archive               Every document, by semester and institution
-#/about                 About, path, capabilities
-#/contact               Contact
+/                       Home — selected work
+/plan                   Planning index
+/plan/<slug>            Planning case study
+/visualisation          Visualisation index
+/visualisation/<slug>   One study, its charts as numbered figures
+/design                 Design index
+/design/<slug>          Design case study
+/photography            The archive — 13 stories
+/photography/<slug>     One story, paced as plates
+/motion                 Films and short cuts
+/archive                Every document, by semester and institution
+/about                  About, path, capabilities
+/contact                Contact
 ```
 
-Hash routing, deliberately: it needs no server rewrite rules, survives being
-copied onto any host, and works from disk.
+Real addresses. Links inside the site still change the page without a reload —
+app.js intercepts them and uses the History API — but every one of these is also
+a real file a server can hand out on its own.
+
+Until 2026 the routes lived in the hash (`/#/plan/wuf11`). That needed no
+server configuration and worked straight off disk, but the part after `#` never
+leaves the browser, so search engines, link previews and AI readers only ever
+saw the home page. Old hash links are still honoured: app.js rewrites any
+`/#/…` address, and the older `#about`-style anchors, to the real one on arrival.
+
+## Pre-rendering
+
+The pages are built in the browser from `content.js`, so without a build a
+reader that does not run JavaScript sees nothing but the home page. The build
+runs the site's own code once per page and saves the result:
+
+```
+npm install              # once, from the repository root
+npm run prerender        # after any change to content, code or the shell
+```
+
+It writes `index.html` and `<route>/index.html` for every page, plus
+`404.html`, `sitemap.xml` and `robots.txt`. Each page gets its own title,
+description, canonical address and social-card text. Inner pages ship without
+the home page's markup, so a reader gets the page it asked for first.
+
+Nothing is duplicated: `build/prerender.js` loads the page into jsdom and lets
+the router in app.js render it, exactly as it does for a visitor. Pages are
+listed from the content, so a new project is picked up automatically, and a
+removed one has its old page deleted.
+
+Visitors are never shown stale content. app.js renders every page again from
+`content.js` on arrival, so an edit that has not been pre-rendered yet is still
+what a person sees; only non-JavaScript readers wait for the next build. A new
+project that has not been built yet is served `404.html`, which is the full app,
+so it still renders for a visitor — just with a 404 status until the next build.
+
+Edit `../src/shell.html`, never the generated `index.html`: the next build
+overwrites it.
 
 ## Accessibility
 

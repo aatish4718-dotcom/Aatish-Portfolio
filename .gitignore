@@ -5,3 +5,6 @@ __pycache__/
 # Local-only helpers and working files
 .playwright-mcp/
 *.zip
+
+# Build tooling (npm install)
+node_modules/
