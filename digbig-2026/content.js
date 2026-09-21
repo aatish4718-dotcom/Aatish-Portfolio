@@ -10,7 +10,7 @@
       not known it is simply absent — no placeholder years, no guessed cities.
 
    2. Curation is editorial, not factual. The photography story titles and the
-      short descriptions are written by reading the 141 photographs; they group
+      short descriptions are written by reading the 166 photographs; they group
       and name real frames, they do not claim anything about them that the
       picture does not show.
    ========================================================================== */
@@ -32,7 +32,7 @@ const SITE = {
 };
 
 /* ---------------------------------------------------------------------------
-   PHOTOGRAPHY — 12 stories cut from the 141-frame archive.
+   PHOTOGRAPHY — 13 stories cut from the 166-frame archive.
    `refs` are "<category-slug>/<1-based frame number>" into PORTFOLIO_DATA.
    `weight` drives the asymmetric index: 'lg' gets a large preview, 'sm' small.
    ------------------------------------------------------------------------ */
@@ -871,7 +871,7 @@ const TIMELINE = [
   { k: '2021', t: 'Field documentation', d: 'Research intern under Prof. Poonam Prakash and Ms. Ankita Mandal — Kathputli Colony, Delhi.' },
   { k: '2022', t: 'NIUA', d: 'Research Fellow, National Institute of Urban Affairs — WUF11, CITIIS 2.0, C-CUBE.' },
   { k: '2025 —', t: 'AIILSG', d: 'BD Associate (Urban Planner) and IEC Expert, Swachh Bharat Mission — Balotra, Siwana, Chittorgarh.' },
-  { k: 'Throughout', t: 'Photography / Film', d: '141 photographs, seven films, a thirty-eight page book. Society coordinator, Inmotion film-making society, SPA Delhi.' }
+  { k: 'Throughout', t: 'Photography / Film', d: '166 photographs, seven films, a thirty-eight page book. Society coordinator, Inmotion film-making society, SPA Delhi.' }
 ];
 
 /* Software, arranged as the route a project actually travels — map, then

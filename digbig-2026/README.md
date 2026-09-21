@@ -15,8 +15,8 @@ any host and it works. To preview locally, double-click `START.bat`.
 | `styles.css` | The visual system — tokens, 12-column grid, every component |
 | `app.js` | Hash router, all routed views, viewer, drawer, lazy media |
 | `content.js` | **Everything the site says.** Photo stories, planning cases, design cases, films, About |
-| `data.js` | The 141 photographs, by plot, with real pixel dimensions |
-| `design-data.js` | The 39 design pieces and their pages |
+| `data.js` | The 166 photographs, by plot, with real pixel dimensions |
+| `design-data.js` | The 45 design pieces and their pages |
 | `tools-make-webp.py` | Regenerates the WebP derivatives (see below) |
 
 `data.js` and `design-data.js` are carried over unchanged from the previous
@@ -39,7 +39,7 @@ Common edits:
 
 - **Rename a photography story, or move a frame between stories** — edit
   `PHOTO_STORIES`. Frames are `"<plot-slug>/<frame number>"`, one-based, into
-  `data.js`. All 141 frames are used exactly once; the counts on the site are
+  `data.js`. All 166 frames are used exactly once; the counts on the site are
   computed, so they follow whatever you do here.
 - **Add a planning project** — add an entry to `PLAN_PROJECTS`. Only `slug`,
   `title`, `category` and `lede` are required; `cover`, `process`, `film` and
@@ -115,7 +115,7 @@ still renders if the derivatives are ever missing from a deploy.
 
 ## How the loading works
 
-The archive is 141 photographs, 39 design pieces and 17 clips, so nothing loads
+The archive is 166 photographs, 45 design pieces and 17 clips, so nothing loads
 until it is needed:
 
 - Only the current route is ever built. The home page's images are attached on
@@ -143,9 +143,10 @@ about a dozen.
 #/visualisation/<slug>  One study, its charts as numbered figures
 #/design                Design index
 #/design/<slug>         Design case study
-#/photography           The archive — 12 stories
+#/photography           The archive — 13 stories
 #/photography/<slug>    One story, paced as plates
 #/motion                Films and short cuts
+#/archive               Every document, by semester and institution
 #/about                 About, path, capabilities
 #/contact               Contact
 ```
@@ -165,7 +166,9 @@ them — so each one carries `tabindex="0"` and `role="button"` and answers Ente
 and Space, taking its name from the alt text it already had. Opening that way
 also means focus has somewhere to return to: the viewer traps focus while it is
 open, moves on the arrow keys, closes on Escape and hands focus back to the
-image it came from. Every text colour in `styles.css` was checked against the ground it sits
+image it came from.
+
+Every text colour in `styles.css` was checked against the ground it sits
 on and clears WCAG AA — the metadata grey and the signal red are both a step
 deeper than they look for exactly that reason. If you change a colour, check it.
 

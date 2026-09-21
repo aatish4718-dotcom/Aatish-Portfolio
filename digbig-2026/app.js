@@ -5,7 +5,7 @@
    the site has to keep working when it is copied onto a plain host, or opened
    straight off disk, which both rule out history.pushState.
 
-   Loading discipline, because the archive is 141 photographs and 17 clips:
+   Loading discipline, because the archive is 166 photographs and 17 clips:
    only the route being viewed is ever built, every image below the fold is
    native-lazy with intrinsic width/height so nothing reflows, story pages ask
    for the thumbnail first and the full frame only in the viewer, and no video
@@ -294,14 +294,12 @@
   }
 
   function buildHome() {
-    /* Attach the hero's WebP sources. This runs synchronously right after the
-       router unhides #home and before the first layout of it, so the browser
-       resolves the srcset and never requests the JPEG fallback. */
-    var heroImg = $('#heroImg');
-    if (heroImg) {
-      heroImg.sizes = '92vw';
-      heroImg.srcset = webpSet('photos/heritage/02.jpg', 1600);
-    }
+    /* The hero's WebP srcset is written into index.html, not attached here.
+       It used to be set by this function, which ran after the browser had
+       already started on the <img src>: the 456 KB JPEG began downloading and
+       was then abandoned the moment the srcset arrived. In the markup, the
+       browser picks a WebP from the start. loading="lazy" still keeps it from
+       being fetched at all on a deep link, where #home is display:none. */
 
     /* Counts are read off the content, never typed twice — re-cut a story or
        add a project and the numbers on the page follow. */
