@@ -26,7 +26,7 @@ const SITE = {
      LinkedIn and the CV are the contact routes. */
   instagram: 'https://www.instagram.com/mad_zombie_/',
   linkedin: 'https://www.linkedin.com/in/aatish4718/',
-  cv: 'images/Aatish_Kumar_CV_2026.pdf',
+  cv: 'images/Aatish_Kumar_CV_2026-09.pdf',
   lede: 'I work between maps, cities, images and moving stories.',
   intro: 'Urban planning, visual communication, photography and film — connected through one way of seeing.'
 };
@@ -951,12 +951,16 @@ const TIMELINE = [
    where the CV says only "GIS", and Word covered by its "MS Office". The Data
    stage is not an invention of this site either: the CV carries a "Data
    Visualisation Tools" line of its own, listing Flourish, Datawrapper and
-   Power BI, with Visme under Software. */
+   Power BI, with Visme under Software.
+
+   Tableau is the one exception, named by Aatish and not yet on the CV. It
+   belongs on that "Data Visualisation Tools" line the next time the CV is
+   revised, and then this note can go back to having no exception in it. */
 const TOOLS = [
   { g: 'Planning',      sub: 'Maps / CAD / GIS',
     items: ['AutoCAD', 'SketchUp', 'GIS'] },
   { g: 'Data',          sub: 'Charts / Maps / Dashboards',
-    items: ['Flourish', 'Datawrapper', 'Power BI', 'Visme'] },
+    items: ['Flourish', 'Datawrapper', 'Power BI', 'Tableau', 'Visme'] },
   { g: 'Design',        sub: 'Image / Layout / Interface',
     items: ['Photoshop', 'Illustrator', 'InDesign', 'Figma', 'Canva'] },
   { g: 'Documentation', sub: 'Reports / Presentations / Spreadsheets',

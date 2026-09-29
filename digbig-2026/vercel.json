@@ -3,7 +3,12 @@
   "redirects": [
     {
       "source": "/images/Aatish_Kumar_CV.pdf",
-      "destination": "/images/Aatish_Kumar_CV_2026.pdf",
+      "destination": "/images/Aatish_Kumar_CV_2026-09.pdf",
+      "permanent": false
+    },
+    {
+      "source": "/images/Aatish_Kumar_CV_2026.pdf",
+      "destination": "/images/Aatish_Kumar_CV_2026-09.pdf",
       "permanent": false
     }
   ],
